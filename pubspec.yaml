@@ -1,0 +1,45 @@
+name: learning_management_system
+description: Cross-platform LMS for language learning centers.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.9.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+  flutter_riverpod: ^2.6.1
+  go_router: ^14.8.1
+  supabase_flutter: ^2.9.0
+  intl: ^0.20.2
+  equatable: ^2.0.7
+  logger: ^2.5.0
+  connectivity_plus: ^6.1.4
+  shared_preferences: ^2.5.3
+  flutter_dotenv: ^5.2.1
+  cached_network_image: ^3.4.1
+  shimmer: ^3.0.0
+  url_launcher: ^6.3.1
+  http: ^1.6.0
+  universal_platform: ^1.1.0
+  file_picker: ^8.3.7
+  video_player: ^2.9.3
+  chewie: ^1.10.0
+  pdfx: ^2.8.0
+  path: ^1.9.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - .env
+    - assets/images/
