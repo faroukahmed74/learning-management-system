@@ -4,6 +4,8 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../core/router/route_names.dart';
 import '../../../../core/utils/validators.dart';
+import '../../../../l10n/app_localizations.dart';
+import '../../../../shared/widgets/app_feedback.dart';
 import '../../../../shared/widgets/responsive_content.dart';
 import '../providers/auth_provider.dart';
 
@@ -45,76 +47,69 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
           );
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Account created. Check your email to verify.'),
-          ),
+          SnackBar(content: Text(context.l10n.accountCreated)),
         );
         context.go(RouteNames.login);
       }
     } catch (error) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(error.toString())),
-        );
-      }
+      if (mounted) showErrorSnackBar(context, error);
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     final isLoading = ref.watch(authControllerProvider).isLoading;
 
     return AuthPageScaffold(
-      title: 'Register',
+      title: l10n.register,
       showBack: true,
       child: Form(
         key: _formKey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-                  TextFormField(
-                    controller: _nameController,
-                    decoration: const InputDecoration(labelText: 'Full name'),
-                    validator: (v) =>
-                        Validators.requiredField(v, fieldName: 'Full name'),
-                  ),
-                  const SizedBox(height: 16),
-                  TextFormField(
-                    controller: _emailController,
-                    decoration: const InputDecoration(labelText: 'Email'),
-                    keyboardType: TextInputType.emailAddress,
-                    validator: Validators.email,
-                  ),
-                  const SizedBox(height: 16),
-                  TextFormField(
-                    controller: _passwordController,
-                    decoration: const InputDecoration(labelText: 'Password'),
-                    obscureText: true,
-                    validator: Validators.password,
-                  ),
-                  const SizedBox(height: 16),
-                  TextFormField(
-                    controller: _nativeLanguageController,
-                    decoration:
-                        const InputDecoration(labelText: 'Native language'),
-                  ),
-                  const SizedBox(height: 16),
-                  TextFormField(
-                    controller: _targetLanguageController,
-                    decoration:
-                        const InputDecoration(labelText: 'Target language'),
-                  ),
-                  const SizedBox(height: 24),
-                  FilledButton(
-                    onPressed: isLoading ? null : _submit,
-                    child: isLoading
-                        ? const SizedBox(
-                            height: 20,
-                            width: 20,
-                            child: CircularProgressIndicator(strokeWidth: 2),
-                          )
-                        : const Text('Create Account'),
-                  ),
+            TextFormField(
+              controller: _nameController,
+              decoration: InputDecoration(labelText: l10n.fullName),
+              validator: (v) =>
+                  Validators.requiredField(v, l10n, fieldName: l10n.fullName),
+            ),
+            const SizedBox(height: 16),
+            TextFormField(
+              controller: _emailController,
+              decoration: InputDecoration(labelText: l10n.email),
+              keyboardType: TextInputType.emailAddress,
+              validator: (v) => Validators.email(v, l10n),
+            ),
+            const SizedBox(height: 16),
+            TextFormField(
+              controller: _passwordController,
+              decoration: InputDecoration(labelText: l10n.password),
+              obscureText: true,
+              validator: (v) => Validators.password(v, l10n),
+            ),
+            const SizedBox(height: 16),
+            TextFormField(
+              controller: _nativeLanguageController,
+              decoration: InputDecoration(labelText: l10n.nativeLanguage),
+            ),
+            const SizedBox(height: 16),
+            TextFormField(
+              controller: _targetLanguageController,
+              decoration: InputDecoration(labelText: l10n.targetLanguage),
+            ),
+            const SizedBox(height: 24),
+            FilledButton(
+              onPressed: isLoading ? null : _submit,
+              child: isLoading
+                  ? const SizedBox(
+                      height: 20,
+                      width: 20,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    )
+                  : Text(l10n.createAccount),
+            ),
           ],
         ),
       ),

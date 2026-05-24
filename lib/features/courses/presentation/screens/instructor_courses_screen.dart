@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../core/config/env.dart';
 import '../../../../core/router/route_names.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../../../shared/domain/enums/user_role.dart';
 import '../../../../shared/widgets/empty_state.dart';
 import '../../../../shared/widgets/error_view.dart';
@@ -19,34 +20,35 @@ class InstructorCoursesScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = context.l10n;
     final coursesAsync = ref.watch(instructorCoursesProvider);
 
     return RoleAdaptiveShell(
       role: UserRole.instructor,
-      title: 'My Courses',
-      items: InstructorDashboardScreen.shellItems,
+      title: l10n.myCoursesTitle,
+      items: InstructorDashboardScreen.shellItems(l10n),
       child: Stack(
         children: [
           coursesAsync.when(
-            loading: () => const LoadingIndicator(message: 'Loading courses...'),
+            loading: () => LoadingIndicator(message: l10n.loadingCourses),
             error: (error, _) => ErrorView(
-              message: error.toString(),
+              error: error,
               onRetry: () => ref.invalidate(instructorCoursesProvider),
             ),
             data: (courses) {
               if (courses.isEmpty) {
                 return EmptyState(
-                  title: 'No courses yet',
+                  title: l10n.noCoursesYet,
                   subtitle: Env.isConfigured
-                      ? 'Create your first course with modules and lessons.'
-                      : 'Configure Supabase in .env to get started.',
+                      ? l10n.createFirstCourse
+                      : l10n.configureSupabase,
                   icon: Icons.menu_book_outlined,
                   action: Env.isConfigured
                       ? FilledButton.icon(
                           onPressed: () =>
                               context.push(RouteNames.instructorCourseNew),
                           icon: const Icon(Icons.add),
-                          label: const Text('Create Course'),
+                          label: Text(l10n.createCourse),
                         )
                       : null,
                 );
@@ -79,7 +81,7 @@ class InstructorCoursesScreen extends ConsumerWidget {
               child: FloatingActionButton.extended(
                 onPressed: () => context.push(RouteNames.instructorCourseNew),
                 icon: const Icon(Icons.add),
-                label: const Text('New Course'),
+                label: Text(l10n.newCourse),
               ),
             ),
         ],

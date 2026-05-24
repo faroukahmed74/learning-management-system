@@ -128,4 +128,19 @@ class AdminRepository {
         .map((row) => AdminCenterRow.fromJson(Map<String, dynamic>.from(row)))
         .toList();
   }
+
+  Future<void> updateUserRole(String userId, String role) async {
+    await _db.from('profiles').update({'role': role}).eq('id', userId);
+  }
+
+  Future<void> createCenter({
+    required String name,
+    required String slug,
+  }) async {
+    await _db.from('centers').insert({
+      'name': name,
+      'slug': slug,
+      'is_active': true,
+    });
+  }
 }

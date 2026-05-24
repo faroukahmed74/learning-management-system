@@ -2,95 +2,77 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/router/route_names.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../../../shared/domain/enums/user_role.dart';
-import '../../../../shared/widgets/empty_state.dart';
 import '../../../../shared/widgets/responsive_content.dart';
 import '../../../../shared/widgets/role_adaptive_shell.dart';
 
 class InstructorDashboardScreen extends StatelessWidget {
   const InstructorDashboardScreen({super.key});
 
-  static const shellItems = [
-    ShellDestination(
-      route: RouteNames.instructorDashboard,
-      destination: NavigationDestination(
-        icon: Icon(Icons.dashboard_outlined),
-        selectedIcon: Icon(Icons.dashboard),
-        label: 'Dashboard',
-      ),
-    ),
-    ShellDestination(
-      route: RouteNames.instructorCourses,
-      destination: NavigationDestination(
-        icon: Icon(Icons.menu_book_outlined),
-        selectedIcon: Icon(Icons.menu_book),
-        label: 'Courses',
-      ),
-    ),
-    ShellDestination(
-      route: RouteNames.instructorBatches,
-      destination: NavigationDestination(
-        icon: Icon(Icons.groups_outlined),
-        selectedIcon: Icon(Icons.groups),
-        label: 'Batches',
-      ),
-    ),
-  ];
+  static List<ShellDestination> shellItems(AppLocalizations l10n) => [
+        ShellDestination(
+          route: RouteNames.instructorDashboard,
+          destination: NavigationDestination(
+            icon: const Icon(Icons.dashboard_outlined),
+            selectedIcon: const Icon(Icons.dashboard),
+            label: l10n.dashboard,
+          ),
+        ),
+        ShellDestination(
+          route: RouteNames.instructorCourses,
+          destination: NavigationDestination(
+            icon: const Icon(Icons.menu_book_outlined),
+            selectedIcon: const Icon(Icons.menu_book),
+            label: l10n.courses,
+          ),
+        ),
+        ShellDestination(
+          route: RouteNames.instructorBatches,
+          destination: NavigationDestination(
+            icon: const Icon(Icons.groups_outlined),
+            selectedIcon: const Icon(Icons.groups),
+            label: l10n.batches,
+          ),
+        ),
+      ];
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+
     return RoleAdaptiveShell(
       role: UserRole.instructor,
-      title: 'Instructor Dashboard',
-      items: shellItems,
+      title: l10n.instructorDashboard,
+      items: shellItems(l10n),
       child: ResponsiveContent(
         child: ListView(
           children: [
             Card(
               child: ListTile(
                 leading: const Icon(Icons.menu_book),
-                title: const Text('My Courses'),
-                subtitle: const Text('Create and manage your courses'),
+                title: Text(l10n.myCoursesTitle),
+                subtitle: Text(l10n.createManageCourses),
                 onTap: () => context.go(RouteNames.instructorCourses),
               ),
             ),
             Card(
               child: ListTile(
                 leading: const Icon(Icons.upload_file),
-                title: const Text('Upload Materials'),
-                subtitle: const Text('Videos, PDFs, audio for lessons'),
+                title: Text(l10n.uploadMaterials),
+                subtitle: Text(l10n.uploadMaterialsDesc),
                 onTap: () => context.go(RouteNames.instructorCourses),
               ),
             ),
             Card(
               child: ListTile(
                 leading: const Icon(Icons.video_call),
-                title: const Text('Live Sessions'),
-                subtitle: const Text('Schedule classes with meeting links'),
+                title: Text(l10n.liveSessions),
+                subtitle: Text(l10n.liveSessionsDesc),
                 onTap: () => context.go(RouteNames.instructorBatches),
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class InstructorBatchesScreen extends StatelessWidget {
-  const InstructorBatchesScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return RoleAdaptiveShell(
-      role: UserRole.instructor,
-      title: 'Batches',
-      items: InstructorDashboardScreen.shellItems,
-      child: const ResponsiveContent(
-        child: EmptyState(
-          title: 'No batches yet',
-          subtitle: 'Create class groups and assign students.',
-          icon: Icons.groups_outlined,
         ),
       ),
     );

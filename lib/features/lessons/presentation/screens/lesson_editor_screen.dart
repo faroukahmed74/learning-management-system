@@ -2,7 +2,11 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/utils/error_messages.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../../../shared/domain/enums/material_type.dart' as lms;
+import '../../../../shared/widgets/app_feedback.dart';
+import '../../../../shared/widgets/app_settings_controls.dart';
 import '../../../../shared/widgets/empty_state.dart';
 import '../../../../shared/widgets/error_view.dart';
 import '../../../../shared/widgets/loading_indicator.dart';
@@ -92,11 +96,7 @@ class _LessonEditorScreenState extends ConsumerState<LessonEditorScreen> {
 
       await _loadMaterials();
     } catch (error) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Upload failed: $error')),
-        );
-      }
+      if (mounted) showErrorSnackBar(context, error);
     } finally {
       if (mounted) setState(() => _uploading = false);
     }
@@ -104,36 +104,46 @@ class _LessonEditorScreenState extends ConsumerState<LessonEditorScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     final lessonAsync = ref.watch(lessonDetailProvider(widget.lessonId));
 
     return lessonAsync.when(
-      loading: () => const Scaffold(
-        body: LoadingIndicator(message: 'Loading lesson...'),
+      loading: () => Scaffold(
+        body: LoadingIndicator(message: l10n.loadingLesson),
       ),
       error: (e, _) => Scaffold(
-        appBar: AppBar(title: const Text('Lesson')),
+        appBar: AppBar(
+          title: Text(l10n.lesson),
+          actions: const [AppSettingsControls(compact: true)],
+        ),
         body: ErrorView(
-          message: e.toString(),
+          error: e,
           onRetry: () => ref.invalidate(lessonDetailProvider(widget.lessonId)),
         ),
       ),
       data: (lesson) {
         if (lesson == null) {
           return Scaffold(
-            appBar: AppBar(title: const Text('Lesson')),
-            body: const Center(child: Text('Lesson not found')),
+            appBar: AppBar(
+              title: Text(l10n.lesson),
+              actions: const [AppSettingsControls(compact: true)],
+            ),
+            body: Center(child: Text(l10n.lessonNotFound)),
           );
         }
 
         return Scaffold(
-          appBar: AppBar(title: Text(lesson.title)),
+          appBar: AppBar(
+            title: Text(lesson.title),
+            actions: const [AppSettingsControls(compact: true)],
+          ),
           body: _loading
-              ? const LoadingIndicator()
+              ? LoadingIndicator(message: l10n.loading)
               : _materials.isEmpty
                   ? ResponsiveContent(
                       child: EmptyState(
-                        title: 'No materials',
-                        subtitle: 'Upload videos, PDFs, or audio for this lesson.',
+                        title: l10n.noMaterials,
+                        subtitle: l10n.uploadMaterialHint,
                         icon: Icons.upload_file,
                         action: FilledButton.icon(
                           onPressed: _uploading ? null : _uploadMaterial,
@@ -144,7 +154,7 @@ class _LessonEditorScreenState extends ConsumerState<LessonEditorScreen> {
                                   child: CircularProgressIndicator(strokeWidth: 2),
                                 )
                               : const Icon(Icons.upload),
-                          label: const Text('Upload Material'),
+                          label: Text(l10n.uploadMaterial),
                         ),
                       ),
                     )
@@ -154,20 +164,24 @@ class _LessonEditorScreenState extends ConsumerState<LessonEditorScreen> {
                         maxWidth: 960,
                         child: ListView(
                           children: [
-                            ..._materials.map((m) => _MaterialTile(
-                                  material: m,
-                                  onDelete: () async {
-                                    await ref
-                                        .read(courseRepositoryProvider)
-                                        .deleteMaterial(m.id);
-                                    await _loadMaterials();
-                                  },
-                                )),
+                            ..._materials.map(
+                              (m) => _MaterialTile(
+                                material: m,
+                                onDelete: () async {
+                                  await ref
+                                      .read(courseRepositoryProvider)
+                                      .deleteMaterial(m.id);
+                                  await _loadMaterials();
+                                },
+                              ),
+                            ),
                             const SizedBox(height: 16),
                             OutlinedButton.icon(
                               onPressed: _uploading ? null : _uploadMaterial,
                               icon: const Icon(Icons.add),
-                              label: Text(_uploading ? 'Uploading...' : 'Add Material'),
+                              label: Text(
+                                _uploading ? l10n.uploading : l10n.addMaterial,
+                              ),
                             ),
                             const SizedBox(height: 24),
                             if (_materials.any((m) => m.type == lms.MaterialType.video))
@@ -180,7 +194,7 @@ class _LessonEditorScreenState extends ConsumerState<LessonEditorScreen> {
               ? FloatingActionButton.extended(
                   onPressed: _uploading ? null : _uploadMaterial,
                   icon: const Icon(Icons.upload),
-                  label: const Text('Upload'),
+                  label: Text(l10n.upload),
                 )
               : null,
         );
@@ -209,7 +223,9 @@ class _MaterialTile extends StatelessWidget {
       child: ListTile(
         leading: Icon(_icon),
         title: Text(material.title),
-        subtitle: Text('${material.type.label}${material.fileName != null ? ' · ${material.fileName}' : ''}'),
+        subtitle: Text(
+          '${material.type.label}${material.fileName != null ? ' · ${material.fileName}' : ''}',
+        ),
         trailing: IconButton(
           icon: const Icon(Icons.delete_outline),
           onPressed: onDelete,
@@ -226,6 +242,7 @@ class _PreviewSection extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = context.l10n;
     final video = materials.firstWhere(
       (m) => m.type == lms.MaterialType.video && m.storagePath != null,
       orElse: () => materials.first,
@@ -238,11 +255,11 @@ class _PreviewSection extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Preview', style: Theme.of(context).textTheme.titleMedium),
+        Text(l10n.preview, style: Theme.of(context).textTheme.titleMedium),
         const SizedBox(height: 8),
         urlAsync.when(
-          loading: () => const LoadingIndicator(),
-          error: (e, _) => Text('Preview error: $e'),
+          loading: () => LoadingIndicator(message: l10n.loading),
+          error: (e, _) => Text(l10n.friendlyError(e)),
           data: (url) {
             if (video.type == lms.MaterialType.video) {
               return VideoPlayerWidget(url: url);

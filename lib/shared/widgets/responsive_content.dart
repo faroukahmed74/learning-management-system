@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/constants/responsive_breakpoints.dart';
+import 'app_settings_controls.dart';
 
 /// Centers content and applies a max width on large screens.
 class ResponsiveContent extends StatelessWidget {
@@ -48,9 +49,14 @@ class AuthPageScaffold extends StatelessWidget {
     final isWide = !ResponsiveBreakpoints.isMobile(context);
 
     return Scaffold(
-      appBar: showBack
-          ? AppBar(title: Text(title))
-          : null,
+      appBar: AppBar(
+        automaticallyImplyLeading: showBack,
+        title: showBack ? Text(title) : null,
+        actions: const [
+          AppSettingsControls(),
+          SizedBox(width: 8),
+        ],
+      ),
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -103,7 +109,10 @@ class AppPageScaffold extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
-        actions: actions,
+        actions: [
+          const AppSettingsControls(compact: true),
+          ...?actions,
+        ],
       ),
       body: ResponsiveContent(child: body),
       floatingActionButton: floatingActionButton,

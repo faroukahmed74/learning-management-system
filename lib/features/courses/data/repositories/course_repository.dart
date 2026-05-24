@@ -33,12 +33,23 @@ class CourseRepository {
         .toList();
   }
 
-  Future<List<Course>> getPublishedCourses() async {
-    final rows = await _db
+  Future<List<Course>> getPublishedCourses({
+    String? query,
+    String? level,
+  }) async {
+    var builder = _db
         .from('courses')
         .select()
-        .eq('status', CourseStatus.published.name)
-        .order('created_at', ascending: false);
+        .eq('status', CourseStatus.published.name);
+
+    if (level != null && level.isNotEmpty) {
+      builder = builder.eq('level', level);
+    }
+    if (query != null && query.isNotEmpty) {
+      builder = builder.or('title.ilike.%$query%,language_taught.ilike.%$query%');
+    }
+
+    final rows = await builder.order('created_at', ascending: false);
 
     return (rows as List)
         .map((row) => Course.fromJson(Map<String, dynamic>.from(row)))

@@ -12,6 +12,15 @@ class RouteNames {
   static const instructorCourses = '/instructor/courses';
   static const instructorCourseNew = '/instructor/courses/new';
   static const instructorBatches = '/instructor/batches';
+  static const instructorBatchNew = '/instructor/batches/new';
+
+  static String instructorBatchDetail(String batchId) =>
+      '/instructor/batches/$batchId';
+
+  static String instructorBatchEdit(String batchId) =>
+      '/instructor/batches/$batchId/edit';
+
+  static const profileEdit = '/profile/edit';
 
   static const studentDashboard = '/student/dashboard';
   static const studentCatalog = '/student/catalog';

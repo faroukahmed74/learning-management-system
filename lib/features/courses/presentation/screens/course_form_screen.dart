@@ -3,10 +3,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/router/route_names.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../../../shared/domain/enums/cefr_level.dart';
 import '../../../../shared/domain/enums/course_status.dart';
-import '../../../auth/presentation/providers/auth_provider.dart';
+import '../../../../shared/widgets/app_settings_controls.dart';
+import '../../../../shared/widgets/app_feedback.dart';
 import '../../../../shared/widgets/responsive_content.dart';
+import '../../../auth/presentation/providers/auth_provider.dart';
 import '../../domain/entities/course.dart';
 import '../providers/courses_provider.dart';
 
@@ -71,7 +74,7 @@ class _CourseFormScreenState extends ConsumerState<CourseFormScreen> {
       final repo = ref.read(courseRepositoryProvider);
       final user = await ref.read(currentUserProvider.future);
 
-      if (user == null) throw Exception('Not signed in');
+      if (user == null) throw Exception(context.l10n.notSignedIn);
 
       if (isEditing && _existing != null) {
         await repo.updateCourse(
@@ -103,11 +106,7 @@ class _CourseFormScreenState extends ConsumerState<CourseFormScreen> {
         }
       }
     } catch (error) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(error.toString())),
-        );
-      }
+      if (mounted) showErrorSnackBar(context, error);
     } finally {
       if (mounted) setState(() => _isSaving = false);
     }
@@ -115,10 +114,13 @@ class _CourseFormScreenState extends ConsumerState<CourseFormScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(isEditing ? 'Edit Course' : 'New Course'),
+        title: Text(isEditing ? l10n.editCourse : l10n.newCourse),
         actions: [
+          const AppSettingsControls(compact: true),
           TextButton(
             onPressed: _isSaving ? null : _save,
             child: _isSaving
@@ -127,7 +129,7 @@ class _CourseFormScreenState extends ConsumerState<CourseFormScreen> {
                     height: 18,
                     child: CircularProgressIndicator(strokeWidth: 2),
                   )
-                : const Text('Save'),
+                : Text(l10n.save),
           ),
         ],
       ),
@@ -139,67 +141,69 @@ class _CourseFormScreenState extends ConsumerState<CourseFormScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-              TextFormField(
-                controller: _titleController,
-                decoration: const InputDecoration(labelText: 'Course title'),
-                validator: (v) =>
-                    v == null || v.trim().length < 3 ? 'Min 3 characters' : null,
-              ),
-              const SizedBox(height: 16),
-              TextFormField(
-                controller: _languageController,
-                decoration: const InputDecoration(
-                  labelText: 'Language taught',
-                  hintText: 'e.g. English, French',
+                TextFormField(
+                  controller: _titleController,
+                  decoration: InputDecoration(labelText: l10n.courseTitle),
+                  validator: (v) => v == null || v.trim().length < 3
+                      ? l10n.minChars(3)
+                      : null,
                 ),
-                validator: (v) =>
-                    v == null || v.trim().isEmpty ? 'Required' : null,
-              ),
-              const SizedBox(height: 16),
-              DropdownButtonFormField<CefrLevel>(
-                initialValue: _level,
-                decoration: const InputDecoration(labelText: 'CEFR Level'),
-                items: CefrLevel.values
-                    .map(
-                      (level) => DropdownMenuItem(
-                        value: level,
-                        child: Text(level.label),
-                      ),
-                    )
-                    .toList(),
-                onChanged: (v) => setState(() => _level = v ?? CefrLevel.a1),
-              ),
-              const SizedBox(height: 16),
-              if (isEditing)
-                DropdownButtonFormField<CourseStatus>(
-                  initialValue: _status,
-                  decoration: const InputDecoration(labelText: 'Status'),
-                  items: CourseStatus.values
+                const SizedBox(height: 16),
+                TextFormField(
+                  controller: _languageController,
+                  decoration: InputDecoration(
+                    labelText: l10n.languageTaught,
+                    hintText: 'e.g. English, French',
+                  ),
+                  validator: (v) => v == null || v.trim().isEmpty
+                      ? l10n.fieldRequired(l10n.languageTaught)
+                      : null,
+                ),
+                const SizedBox(height: 16),
+                DropdownButtonFormField<CefrLevel>(
+                  initialValue: _level,
+                  decoration: InputDecoration(labelText: l10n.cefrLevel),
+                  items: CefrLevel.values
                       .map(
-                        (s) => DropdownMenuItem(
-                          value: s,
-                          child: Text(s.label),
+                        (level) => DropdownMenuItem(
+                          value: level,
+                          child: Text(level.label),
                         ),
                       )
                       .toList(),
-                  onChanged: (v) =>
-                      setState(() => _status = v ?? CourseStatus.draft),
+                  onChanged: (v) => setState(() => _level = v ?? CefrLevel.a1),
                 ),
-              const SizedBox(height: 16),
-              TextFormField(
-                controller: _descriptionController,
-                decoration: const InputDecoration(labelText: 'Description'),
-                maxLines: 4,
-              ),
-              const SizedBox(height: 24),
-              if (isEditing)
-                OutlinedButton.icon(
-                  onPressed: () => context.go(
-                    RouteNames.instructorCourseEdit(widget.courseId!),
+                const SizedBox(height: 16),
+                if (isEditing)
+                  DropdownButtonFormField<CourseStatus>(
+                    initialValue: _status,
+                    decoration: InputDecoration(labelText: l10n.status),
+                    items: CourseStatus.values
+                        .map(
+                          (s) => DropdownMenuItem(
+                            value: s,
+                            child: Text(s.label),
+                          ),
+                        )
+                        .toList(),
+                    onChanged: (v) =>
+                        setState(() => _status = v ?? CourseStatus.draft),
                   ),
-                  icon: const Icon(Icons.view_list),
-                  label: const Text('Manage modules & lessons'),
+                const SizedBox(height: 16),
+                TextFormField(
+                  controller: _descriptionController,
+                  decoration: InputDecoration(labelText: l10n.description),
+                  maxLines: 4,
                 ),
+                const SizedBox(height: 24),
+                if (isEditing)
+                  OutlinedButton.icon(
+                    onPressed: () => context.go(
+                      RouteNames.instructorCourseEdit(widget.courseId!),
+                    ),
+                    icon: const Icon(Icons.view_list),
+                    label: Text(l10n.manageModulesLessons),
+                  ),
               ],
             ),
           ),

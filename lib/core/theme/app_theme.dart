@@ -10,10 +10,23 @@ class AppTheme {
       surface: AppColors.surface,
     );
 
+    return _baseTheme(colorScheme, isDark: false);
+  }
+
+  static ThemeData get dark {
+    final colorScheme = ColorScheme.fromSeed(
+      seedColor: AppColors.primary,
+      brightness: Brightness.dark,
+    );
+
+    return _baseTheme(colorScheme, isDark: true);
+  }
+
+  static ThemeData _baseTheme(ColorScheme colorScheme, {required bool isDark}) {
     return ThemeData(
       useMaterial3: true,
       colorScheme: colorScheme,
-      scaffoldBackgroundColor: AppColors.surface,
+      scaffoldBackgroundColor: colorScheme.surface,
       appBarTheme: AppBarTheme(
         centerTitle: false,
         elevation: 0,
@@ -25,16 +38,20 @@ class AppTheme {
         elevation: 0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
-          side: BorderSide(color: Colors.grey.shade200),
+          side: BorderSide(
+            color: isDark ? Colors.white12 : Colors.grey.shade200,
+          ),
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: Colors.white,
+        fillColor: isDark ? colorScheme.surfaceContainerHighest : Colors.white,
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: Colors.grey.shade300),
+          borderSide: BorderSide(
+            color: isDark ? Colors.white24 : Colors.grey.shade300,
+          ),
         ),
       ),
       filledButtonTheme: FilledButtonThemeData(
@@ -45,15 +62,12 @@ class AppTheme {
           ),
         ),
       ),
-    );
-  }
-
-  static ThemeData get dark {
-    return ThemeData(
-      useMaterial3: true,
-      colorScheme: ColorScheme.fromSeed(
-        seedColor: AppColors.primary,
-        brightness: Brightness.dark,
+      navigationBarTheme: NavigationBarThemeData(
+        labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
+        backgroundColor: colorScheme.surface,
+      ),
+      navigationRailTheme: NavigationRailThemeData(
+        backgroundColor: colorScheme.surface,
       ),
     );
   }

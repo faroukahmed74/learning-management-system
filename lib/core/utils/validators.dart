@@ -1,37 +1,39 @@
+import '../../l10n/app_localizations.dart';
+
 class Validators {
-  static String? email(String? value) {
+  static String? email(String? value, AppLocalizations l10n) {
     if (value == null || value.trim().isEmpty) {
-      return 'Email is required';
+      return l10n.emailRequired;
     }
     final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
     if (!emailRegex.hasMatch(value.trim())) {
-      return 'Enter a valid email';
+      return l10n.emailInvalid;
     }
     return null;
   }
 
-  static String? password(String? value) {
+  static String? password(String? value, AppLocalizations l10n) {
     if (value == null || value.isEmpty) {
-      return 'Password is required';
+      return l10n.passwordRequired;
     }
     if (value.length < 8) {
-      return 'Password must be at least 8 characters';
+      return l10n.passwordMinLength;
     }
     if (!RegExp(r'[A-Z]').hasMatch(value)) {
-      return 'Include at least one uppercase letter';
+      return l10n.passwordUppercase;
     }
     if (!RegExp(r'[a-z]').hasMatch(value)) {
-      return 'Include at least one lowercase letter';
+      return l10n.passwordLowercase;
     }
     if (!RegExp(r'[0-9]').hasMatch(value)) {
-      return 'Include at least one number';
+      return l10n.passwordNumber;
     }
     return null;
   }
 
-  static String? requiredField(String? value, {String fieldName = 'This field'}) {
+  static String? requiredField(String? value, AppLocalizations l10n, {String? fieldName}) {
     if (value == null || value.trim().isEmpty) {
-      return '$fieldName is required';
+      return l10n.fieldRequired(fieldName ?? l10n.required);
     }
     return null;
   }

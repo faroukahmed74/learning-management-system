@@ -19,10 +19,25 @@ final instructorCoursesProvider = FutureProvider<List<Course>>((ref) async {
   return repo.getInstructorCourses(user.id);
 });
 
-final publishedCoursesProvider = FutureProvider<List<Course>>((ref) async {
+final publishedCoursesProvider =
+    FutureProvider.family<List<Course>, CatalogFilter>((ref, filter) async {
   final repo = ref.watch(courseRepositoryProvider);
-  return repo.getPublishedCourses();
+  return repo.getPublishedCourses(query: filter.query, level: filter.level);
 });
+
+class CatalogFilter {
+  const CatalogFilter({this.query = '', this.level});
+
+  final String query;
+  final String? level;
+
+  @override
+  bool operator ==(Object other) =>
+      other is CatalogFilter && other.query == query && other.level == level;
+
+  @override
+  int get hashCode => Object.hash(query, level);
+}
 
 final courseDetailProvider =
     FutureProvider.family<Course?, String>((ref, courseId) async {

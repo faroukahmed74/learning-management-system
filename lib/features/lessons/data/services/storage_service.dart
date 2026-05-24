@@ -6,6 +6,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../../../core/constants/storage_buckets.dart';
 import '../../../../core/errors/app_exception.dart';
 import '../../../../core/network/supabase_client.dart';
+import '../../../../core/utils/storage_path.dart';
 import '../../../../shared/domain/enums/material_type.dart';
 
 class StorageService {
@@ -32,8 +33,12 @@ class StorageService {
       throw const AppException('Could not read file bytes');
     }
 
-    final fileName = file.name;
-    final path = '$courseId/$lessonId/$materialId/$fileName';
+    final path = materialStoragePath(
+      courseId: courseId,
+      lessonId: lessonId,
+      materialId: materialId,
+      originalFileName: file.name,
+    );
 
     await _db.storage.from(StorageBuckets.materials).uploadBinary(
           path,

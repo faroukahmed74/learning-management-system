@@ -1,23 +1,34 @@
 # Language Center LMS
 
-Cross-platform Learning Management System built with Flutter.
+Cross-platform Learning Management System built with Flutter and Supabase.
 
-## Setup (do these in order)
+## Setup
 
 | Step | Doc | Action |
 |------|-----|--------|
 | 1 | [Supabase Setup](docs/05_SUPABASE_SETUP.md) | Create project, copy keys to `.env` |
-| 2 | Migrations | Run SQL files in `supabase/migrations/` |
+| 2 | Migrations | Run all SQL files in `supabase/migrations/` |
 | 3 | [Admin Bootstrap](docs/06_ADMIN_BOOTSTRAP.md) | Register user, promote to admin |
-| 4 | App | Instructor creates courses |
-| 5 | App | Upload videos/PDFs, students watch |
+| 4 | App | `flutter pub get && flutter run -d chrome` |
 
 ```bash
-cp .env.example .env   # Step 1
+cp .env.example .env
 flutter pub get
+dart run tool/verify_supabase.dart
 flutter run -d chrome
-dart run tool/verify_supabase.dart   # verify Step 1-2
 ```
+
+## Features (MVP)
+
+| Area | Features |
+|------|----------|
+| **Auth** | Login, register, role-based routing |
+| **Admin** | Dashboard stats, users (role change), centers CRUD |
+| **Instructor** | Courses, modules, lessons, materials, **batches**, roster, live sessions |
+| **Student** | Catalog search/filter, **enrollment**, my courses, lesson player |
+| **Progress** | Video resume, auto-complete at 90%, course progress bars |
+| **Profile** | Edit profile, avatar upload |
+| **Notifications** | In-app list, mark read, enrollment alerts |
 
 ## Documentation
 
@@ -25,21 +36,22 @@ dart run tool/verify_supabase.dart   # verify Step 1-2
 - [Database ERD](docs/02_DATABASE_ERD.md)
 - [Flutter Structure](docs/03_FLUTTER_STRUCTURE.md)
 - [MVP Roadmap](docs/04_MVP_ROADMAP.md)
-
-## Current features
-
-- Auth (login, register, role-based routing)
-- Supabase connection status on login
-- Instructor: course CRUD, modules, lessons, material upload
-- Student: published course catalog, lesson player (video + PDF)
-- Admin/Instructor/Student role shells
+- [Launch Checklist](docs/07_LAUNCH_CHECKLIST.md)
 
 ## Run
 
 ```bash
 flutter pub get
-dart run pdfx:install_web   # required once for web (fixes white screen)
 flutter run -d chrome    # web
 flutter run -d macos     # desktop
-flutter run              # mobile
+flutter test
+flutter analyze
 ```
+
+**Note:** Do not run `dart run pdfx:install_web` — it breaks `web/index.html` PDF setup.
+
+## New migration
+
+After pulling updates, run in Supabase SQL Editor:
+
+`supabase/migrations/20260525000003_mvp_features.sql`

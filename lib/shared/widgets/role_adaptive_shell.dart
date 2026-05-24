@@ -3,7 +3,9 @@ import 'package:go_router/go_router.dart';
 
 import '../../core/constants/responsive_breakpoints.dart';
 import '../../core/theme/app_colors.dart';
+import '../../l10n/app_localizations.dart';
 import '../../shared/domain/enums/user_role.dart';
+import 'app_settings_controls.dart';
 
 class ShellDestination {
   const ShellDestination({
@@ -52,6 +54,7 @@ class RoleAdaptiveShell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     final width = MediaQuery.sizeOf(context).width;
     final useRail = width >= ResponsiveBreakpoints.mobile;
     final useExtendedRail = width >= ResponsiveBreakpoints.tablet;
@@ -64,15 +67,16 @@ class RoleAdaptiveShell extends StatelessWidget {
         title: Text(title),
         backgroundColor: _accent.withValues(alpha: 0.08),
         actions: [
+          const AppSettingsControls(),
           IconButton(
             icon: const Icon(Icons.notifications_outlined),
             onPressed: () => context.push('/notifications'),
-            tooltip: 'Notifications',
+            tooltip: l10n.notifications,
           ),
           IconButton(
             icon: const Icon(Icons.person_outline),
             onPressed: () => context.push('/profile'),
-            tooltip: 'Profile',
+            tooltip: l10n.profile,
           ),
         ],
       ),

@@ -3,9 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/router/route_names.dart';
-import '../../../../shared/widgets/responsive_content.dart';
+import '../../../../l10n/app_localizations.dart';
+import '../../../../shared/widgets/app_settings_controls.dart';
 import '../../../../shared/widgets/error_view.dart';
 import '../../../../shared/widgets/loading_indicator.dart';
+import '../../../../shared/widgets/responsive_content.dart';
 import '../providers/courses_provider.dart';
 
 class CourseEditorScreen extends ConsumerWidget {
@@ -15,16 +17,18 @@ class CourseEditorScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = context.l10n;
     final courseAsync = ref.watch(courseDetailProvider(courseId));
     final modulesAsync = ref.watch(courseModulesProvider(courseId));
 
     return Scaffold(
       appBar: AppBar(
         title: courseAsync.maybeWhen(
-          data: (course) => Text(course?.title ?? 'Course'),
-          orElse: () => const Text('Course Editor'),
+          data: (course) => Text(course?.title ?? l10n.courseEditor),
+          orElse: () => Text(l10n.courseEditor),
         ),
         actions: [
+          const AppSettingsControls(compact: true),
           IconButton(
             icon: const Icon(Icons.settings),
             onPressed: () => context.push(
@@ -34,9 +38,9 @@ class CourseEditorScreen extends ConsumerWidget {
         ],
       ),
       body: courseAsync.when(
-        loading: () => const LoadingIndicator(),
+        loading: () => LoadingIndicator(message: l10n.loading),
         error: (e, _) => ErrorView(
-          message: e.toString(),
+          error: e,
           onRetry: () {
             ref.invalidate(courseDetailProvider(courseId));
             ref.invalidate(courseModulesProvider(courseId));
@@ -44,14 +48,14 @@ class CourseEditorScreen extends ConsumerWidget {
         ),
         data: (course) {
           if (course == null) {
-            return const Center(child: Text('Course not found'));
+            return Center(child: Text(l10n.courseNotFound));
           }
 
           return ResponsiveContent(
             maxWidth: 960,
             child: modulesAsync.when(
-              loading: () => const LoadingIndicator(),
-              error: (e, _) => ErrorView(message: e.toString()),
+              loading: () => LoadingIndicator(message: l10n.loading),
+              error: (e, _) => ErrorView(error: e),
               data: (modules) => _ModulesList(
                 courseId: courseId,
                 modules: modules,
@@ -66,27 +70,31 @@ class CourseEditorScreen extends ConsumerWidget {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => _addModule(context, ref),
         icon: const Icon(Icons.add),
-        label: const Text('Add Module'),
+        label: Text(l10n.addModule),
       ),
     );
   }
 
   Future<void> _addModule(BuildContext context, WidgetRef ref) async {
+    final l10n = context.l10n;
     final controller = TextEditingController();
     final title = await showDialog<String>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('New Module'),
+        title: Text(l10n.newModule),
         content: TextField(
           controller: controller,
-          decoration: const InputDecoration(labelText: 'Module title'),
+          decoration: InputDecoration(labelText: l10n.moduleTitle),
           autofocus: true,
         ),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(context), child: const Text('Cancel')),
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text(l10n.cancel),
+          ),
           FilledButton(
             onPressed: () => Navigator.pop(context, controller.text.trim()),
-            child: const Text('Add'),
+            child: Text(l10n.add),
           ),
         ],
       ),
@@ -124,10 +132,10 @@ class _ModulesListState extends ConsumerState<_ModulesList> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+
     if (widget.modules.isEmpty) {
-      return const Center(
-        child: Text('No modules yet. Tap "Add Module" to start.'),
-      );
+      return Center(child: Text(l10n.noModulesYet));
     }
 
     return ListView.builder(
@@ -142,7 +150,7 @@ class _ModulesListState extends ConsumerState<_ModulesList> {
           child: Column(
             children: [
               ListTile(
-                title: Text('Unit ${index + 1}: ${module.title}'),
+                title: Text('${l10n.unitLabel(index + 1)}: ${module.title}'),
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -172,14 +180,21 @@ class _ModulesListState extends ConsumerState<_ModulesList> {
   }
 
   Future<void> _deleteModule(String moduleId) async {
+    final l10n = context.l10n;
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Delete module?'),
-        content: const Text('All lessons in this module will be deleted.'),
+        title: Text(l10n.deleteModule),
+        content: Text(l10n.deleteModuleConfirm),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(context, false), child: const Text('Cancel')),
-          FilledButton(onPressed: () => Navigator.pop(context, true), child: const Text('Delete')),
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: Text(l10n.cancel),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(context, true),
+            child: Text(l10n.delete),
+          ),
         ],
       ),
     );
@@ -199,6 +214,8 @@ class _LessonsSection extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = context.l10n;
+
     return FutureBuilder<List<Lesson>>(
       future: ref.read(courseRepositoryProvider).getLessons(moduleId),
       builder: (context, snapshot) {
@@ -220,11 +237,11 @@ class _LessonsSection extends ConsumerWidget {
                 ),
               ),
               Align(
-                alignment: Alignment.centerLeft,
+                alignment: AlignmentDirectional.centerStart,
                 child: TextButton.icon(
                   onPressed: () => _addLesson(context, ref, lessons.length),
                   icon: const Icon(Icons.add, size: 18),
-                  label: const Text('Add Lesson'),
+                  label: Text(l10n.addLesson),
                 ),
               ),
             ],
@@ -239,21 +256,25 @@ class _LessonsSection extends ConsumerWidget {
     WidgetRef ref,
     int sortOrder,
   ) async {
+    final l10n = context.l10n;
     final controller = TextEditingController();
     final title = await showDialog<String>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('New Lesson'),
+        title: Text(l10n.newLesson),
         content: TextField(
           controller: controller,
-          decoration: const InputDecoration(labelText: 'Lesson title'),
+          decoration: InputDecoration(labelText: l10n.lessonTitle),
           autofocus: true,
         ),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(context), child: const Text('Cancel')),
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text(l10n.cancel),
+          ),
           FilledButton(
             onPressed: () => Navigator.pop(context, controller.text.trim()),
-            child: const Text('Add'),
+            child: Text(l10n.add),
           ),
         ],
       ),

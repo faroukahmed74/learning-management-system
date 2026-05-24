@@ -12,7 +12,9 @@ import '../../features/admin/presentation/screens/admin_dashboard_screen.dart';
 import '../../features/auth/presentation/screens/forgot_password_screen.dart';
 import '../../features/auth/presentation/screens/login_screen.dart';
 import '../../features/auth/presentation/screens/register_screen.dart';
-import '../../features/instructor/presentation/screens/instructor_dashboard_screen.dart';
+import '../../features/batches/presentation/screens/instructor_batches_screen.dart';
+import '../../features/batches/presentation/screens/batch_form_screen.dart';
+import '../../features/batches/presentation/screens/batch_detail_screen.dart';
 import '../../features/courses/presentation/screens/instructor_courses_screen.dart';
 import '../../features/courses/presentation/screens/course_form_screen.dart';
 import '../../features/courses/presentation/screens/course_editor_screen.dart';
@@ -20,7 +22,9 @@ import '../../features/student/presentation/screens/student_catalog_screen.dart'
 import '../../features/lessons/presentation/screens/lesson_editor_screen.dart';
 import '../../features/lessons/presentation/screens/lesson_player_screen.dart';
 import '../../features/notifications/presentation/screens/notifications_screen.dart';
+import '../../features/instructor/presentation/screens/instructor_dashboard_screen.dart';
 import '../../features/profile/presentation/screens/profile_screen.dart';
+import '../../features/profile/presentation/screens/profile_edit_screen.dart';
 import '../../features/student/presentation/screens/student_dashboard_screen.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {
@@ -61,6 +65,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: RouteNames.profile,
         builder: (context, state) => const ProfileScreen(),
+      ),
+      GoRoute(
+        path: RouteNames.profileEdit,
+        builder: (context, state) => const ProfileEditScreen(),
       ),
       GoRoute(
         path: RouteNames.notifications,
@@ -128,6 +136,24 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: RouteNames.instructorBatches,
         builder: (context, state) => const InstructorBatchesScreen(),
+      ),
+      GoRoute(
+        path: RouteNames.instructorBatchNew,
+        builder: (context, state) => const BatchFormScreen(),
+      ),
+      GoRoute(
+        path: '/instructor/batches/:batchId',
+        builder: (context, state) => BatchDetailScreen(
+          batchId: state.pathParameters['batchId']!,
+        ),
+        routes: [
+          GoRoute(
+            path: 'edit',
+            builder: (context, state) => BatchFormScreen(
+              batchId: state.pathParameters['batchId'],
+            ),
+          ),
+        ],
       ),
 
       // Student

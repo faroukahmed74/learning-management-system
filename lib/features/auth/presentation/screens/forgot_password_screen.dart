@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/utils/validators.dart';
+import '../../../../l10n/app_localizations.dart';
+import '../../../../shared/widgets/app_feedback.dart';
 import '../../../../shared/widgets/responsive_content.dart';
 import '../providers/auth_provider.dart';
 
@@ -34,18 +36,16 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
           .resetPassword(_emailController.text.trim());
       setState(() => _sent = true);
     } catch (error) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(error.toString())),
-        );
-      }
+      if (mounted) showErrorSnackBar(context, error);
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+
     return AuthPageScaffold(
-      title: 'Reset password',
+      title: l10n.resetPassword,
       showBack: true,
       child: _sent
           ? Column(
@@ -53,18 +53,18 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                 const Icon(Icons.mark_email_read_outlined, size: 56),
                 const SizedBox(height: 16),
                 Text(
-                  'Reset link sent',
+                  l10n.resetLinkSent,
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 const SizedBox(height: 8),
-                const Text(
-                  'Check your email for a password reset link.',
+                Text(
+                  l10n.checkEmailReset,
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 24),
                 FilledButton(
                   onPressed: () => context.pop(),
-                  child: const Text('Back to login'),
+                  child: Text(l10n.backToLogin),
                 ),
               ],
             )
@@ -73,20 +73,18 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const Text(
-                    'Enter your email and we will send you a reset link.',
-                  ),
+                  Text(l10n.resetPasswordHint),
                   const SizedBox(height: 16),
                   TextFormField(
                     controller: _emailController,
-                    decoration: const InputDecoration(labelText: 'Email'),
+                    decoration: InputDecoration(labelText: l10n.email),
                     keyboardType: TextInputType.emailAddress,
-                    validator: Validators.email,
+                    validator: (v) => Validators.email(v, l10n),
                   ),
                   const SizedBox(height: 24),
                   FilledButton(
                     onPressed: _submit,
-                    child: const Text('Send reset link'),
+                    child: Text(l10n.sendResetLink),
                   ),
                 ],
               ),
