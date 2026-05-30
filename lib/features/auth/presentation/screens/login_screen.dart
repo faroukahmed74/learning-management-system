@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../../core/config/env.dart';
 import '../../../../core/router/route_names.dart';
@@ -22,6 +23,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _obscurePassword = true;
+  bool _emailNotConfirmed = false;
+  bool _resendingVerification = false;
 
   @override
   void dispose() {
@@ -33,6 +36,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   Future<void> _submit() async {
     if (!_formKey.currentState!.validate()) return;
 
+    setState(() => _emailNotConfirmed = false);
+
     try {
       await ref.read(authControllerProvider.notifier).signIn(
             email: _emailController.text.trim(),
@@ -41,7 +46,38 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       ref.invalidate(currentUserProvider);
       if (mounted) context.go(RouteNames.splash);
     } catch (error) {
+      if (mounted) {
+        setState(() {
+          _emailNotConfirmed = _isEmailNotConfirmed(error);
+        });
+        showErrorSnackBar(context, error);
+      }
+    }
+  }
+
+  bool _isEmailNotConfirmed(Object error) {
+    if (error is AuthException && error.code == 'email_not_confirmed') {
+      return true;
+    }
+    return error.toString().toLowerCase().contains('email not confirmed');
+  }
+
+  Future<void> _resendVerification() async {
+    final email = _emailController.text.trim();
+    if (Validators.email(email, context.l10n) != null) return;
+
+    setState(() => _resendingVerification = true);
+    try {
+      await ref
+          .read(authControllerProvider.notifier)
+          .resendVerificationEmail(email);
+      if (mounted) {
+        showSuccessSnackBar(context, context.l10n.verificationEmailSent);
+      }
+    } catch (error) {
       if (mounted) showErrorSnackBar(context, error);
+    } finally {
+      if (mounted) setState(() => _resendingVerification = false);
     }
   }
 
@@ -115,7 +151,37 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 child: Text(l10n.forgotPassword),
               ),
             ),
-            const SizedBox(height: 8),
+            if (_emailNotConfirmed) ...[
+              Card(
+                color: Theme.of(context).colorScheme.errorContainer,
+                child: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text(
+                        l10n.emailNotConfirmed,
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                      const SizedBox(height: 8),
+                      OutlinedButton(
+                        onPressed:
+                            _resendingVerification ? null : _resendVerification,
+                        child: _resendingVerification
+                            ? const SizedBox(
+                                height: 18,
+                                width: 18,
+                                child:
+                                    CircularProgressIndicator(strokeWidth: 2),
+                              )
+                            : Text(l10n.resendVerification),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 8),
+            ],
             FilledButton(
               onPressed: isLoading ? null : _submit,
               child: isLoading

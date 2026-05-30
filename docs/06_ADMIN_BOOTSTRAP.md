@@ -17,18 +17,35 @@
 
 ### 2. Promote to admin
 
-In **SQL Editor**, run:
+**Option A — SQL Editor (no extra keys)**
+
+Run `supabase/scripts/bootstrap_dev.sql` in **SQL Editor** (edit emails first).
+
+Or run:
 
 ```sql
--- Replace with your admin email
 UPDATE profiles
 SET role = 'admin', status = 'active'
 WHERE email = 'admin@yourcenter.com';
 ```
 
-Or use the script: `supabase/scripts/promote_admin.sql`
+**Option B — CLI script (automated)**
 
-### 3. Create an instructor (optional)
+1. Add `SUPABASE_SERVICE_ROLE_KEY` to `.env` (Dashboard → Settings → API)
+2. Run:
+
+```bash
+chmod +x tool/bootstrap_roles.sh
+./tool/bootstrap_roles.sh admin@yourcenter.com instructor@yourcenter.com
+```
+
+### 3. Email not confirmed?
+
+- Use **Resend verification email** on the login screen, or
+- Run the confirm block in `bootstrap_dev.sql`, or
+- Disable **Confirm email** under **Authentication → Providers → Email** (dev only)
+
+### 4. Create an instructor (optional)
 
 ```sql
 UPDATE profiles
@@ -36,11 +53,11 @@ SET role = 'instructor', status = 'active'
 WHERE email = 'instructor@yourcenter.com';
 ```
 
-### 4. Seed default center (optional)
+### 5. Seed default center (optional)
 
 Run `supabase/seed.sql` in SQL Editor to create a default language center.
 
-### 5. Verify
+### 6. Verify
 
 1. Sign out and sign in again as admin
 2. You should land on **Admin Dashboard**

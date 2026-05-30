@@ -232,6 +232,8 @@ class AppLocalizations {
   String get uploadInvalidFile => _t('uploadInvalidFile');
   String get loadFailed => _t('loadFailed');
   String get uploadFailed => _t('uploadFailed');
+  String get resendVerification => _t('resendVerification');
+  String get verificationEmailSent => _t('verificationEmailSent');
   String get rosterError => _t('rosterError');
   String get sessionsError => _t('sessionsError');
 
@@ -435,6 +437,8 @@ class AppLocalizations {
     'sessionExpired': 'Your session has expired. Please sign in again.',
     'uploadInvalidFile': 'This file could not be uploaded. Try renaming it or use a different file.',
     'loadFailed': 'Could not load data. Please try again.',
+    'resendVerification': 'Resend verification email',
+    'verificationEmailSent': 'Verification email sent. Check your inbox.',
     'rosterError': 'Could not load students.',
     'sessionsError': 'Could not load live sessions.',
   };
@@ -639,6 +643,8 @@ class AppLocalizations {
     'sessionExpired': 'انتهت جلستك. يرجى تسجيل الدخول مرة أخرى.',
     'uploadInvalidFile': 'تعذر رفع هذا الملف. جرّب تغيير الاسم أو استخدم ملفاً آخر.',
     'loadFailed': 'تعذر تحميل البيانات. حاول مرة أخرى.',
+    'resendVerification': 'إعادة إرسال بريد التفعيل',
+    'verificationEmailSent': 'تم إرسال بريد التفعيل. تحقق من صندوق الوارد.',
     'rosterError': 'تعذر تحميل الطلاب.',
     'sessionsError': 'تعذر تحميل الجلسات المباشرة.',
   };

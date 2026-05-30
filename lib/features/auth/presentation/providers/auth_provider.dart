@@ -91,6 +91,16 @@ class AuthController extends StateNotifier<AsyncValue<void>> {
     }
     await _client!.auth.resetPasswordForEmail(email);
   }
+
+  Future<void> resendVerificationEmail(String email) async {
+    if (_client == null) {
+      throw Exception('Supabase is not configured. Update your .env file.');
+    }
+    await _client!.auth.resend(
+      type: OtpType.signup,
+      email: email.trim(),
+    );
+  }
 }
 
 final authControllerProvider =
