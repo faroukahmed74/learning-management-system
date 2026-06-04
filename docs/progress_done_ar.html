@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>تقرير العمل المنجز — LMS</title>
+<style>
+  :root{--primary:#0f766e;--primary-light:#14b8a6;--done:#0e9f6e;--done-bg:#e8f8f1;--partial:#d97706;--partial-bg:#fef3c7;--pending:#64748b;--pending-bg:#f1f5f9;--ink:#1f2933;--muted:#64748b;--line:#e2e8f0;--bg:#f8fafc;}
+  *{box-sizing:border-box;} html,body{margin:0;padding:0;}
+  body{font-family:"Cairo","Tahoma","Geeza Pro","Arial",sans-serif;color:var(--ink);font-size:12px;line-height:1.7;direction:rtl;}
+  .cover{height:1040px;background:linear-gradient(210deg,#0f766e 0%,#14b8a6 55%,#2dd4bf 100%);color:#fff;padding:85px 68px;display:flex;flex-direction:column;justify-content:space-between;page-break-after:always;}
+  .cover .badge{display:inline-block;border:1px solid rgba(255,255,255,.5);border-radius:30px;padding:6px 20px;font-size:12px;}
+  .cover h1{font-size:44px;line-height:1.2;margin:22px 0 10px;font-weight:700;}
+  .cover h2{font-size:18px;font-weight:400;opacity:.92;margin:0;max-width:660px;line-height:1.55;}
+  .cover .stat{margin-top:28px;padding:20px 26px;background:rgba(255,255,255,.14);border-radius:14px;display:inline-block;}
+  .cover .stat .n{font-size:48px;font-weight:700;}
+  .cover .stat .l{font-size:14px;opacity:.9;margin-top:4px;}
+  .cover .meta{border-top:1px solid rgba(255,255,255,.28);padding-top:24px;display:flex;gap:40px;flex-wrap:wrap;font-size:13px;}
+  .cover .meta .k{opacity:.75;font-size:11px;}
+  .cover .meta .v{font-size:16px;font-weight:700;margin-top:2px;}
+  .page{padding:42px 54px;}
+  h2.section{font-size:21px;color:var(--primary);margin:0 0 5px;padding-bottom:7px;border-bottom:3px solid var(--primary-light);display:inline-block;}
+  .sec{margin-bottom:24px;}
+  .lead{color:var(--muted);font-size:12.5px;margin:10px 0 16px;}
+  .summary{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:16px 0;}
+  .sbox{border-radius:10px;padding:16px;text-align:center;}
+  .sbox.done{background:var(--done-bg);border:1px solid #a7e8cf;}
+  .sbox.part{background:var(--partial-bg);border:1px solid #fcd34d;}
+  .sbox.pend{background:var(--pending-bg);border:1px solid var(--line);}
+  .sbox .n{font-size:28px;font-weight:700;}
+  .sbox.done .n{color:var(--done);}
+  .sbox.part .n{color:var(--partial);}
+  .sbox.pend .n{color:var(--pending);}
+  .sbox .l{font-size:11px;color:var(--muted);margin-top:4px;}
+  table{width:100%;border-collapse:collapse;font-size:11.5px;border-radius:8px;overflow:hidden;box-shadow:0 0 0 1px var(--line);margin:12px 0;}
+  th{background:var(--primary);color:#fff;text-align:right;padding:8px 10px;font-weight:700;}
+  td{padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top;}
+  tr:nth-child(even) td{background:var(--bg);}
+  .st{display:inline-block;padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;}
+  .st.done{background:var(--done-bg);color:var(--done);}
+  .st.part{background:var(--partial-bg);color:var(--partial);}
+  .st.pend{background:var(--pending-bg);color:var(--pending);}
+  .feat{border:1px solid var(--line);border-radius:10px;margin-bottom:11px;overflow:hidden;page-break-inside:avoid;}
+  .feat.done-f{border-right:5px solid var(--done);}
+  .feat.part-f{border-right:5px solid var(--partial);}
+  .feat-h{display:flex;justify-content:space-between;align-items:center;padding:11px 14px;background:var(--bg);border-bottom:1px solid var(--line);}
+  .feat-h .t{font-size:13.5px;font-weight:700;color:var(--primary);}
+  .feat-b{padding:11px 14px;font-size:11px;}
+  .feat-b ul{margin:6px 0 0;padding-right:16px;}
+  .feat-b ul li{margin-bottom:3px;}
+  .feat-b .lbl{font-weight:700;color:var(--primary);font-size:10px;margin-top:8px;}
+  .tech{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px;margin-top:12px;}
+  .tech ul{margin:0;padding-right:18px;font-size:11.5px;}
+  .tech li{margin-bottom:4px;}
+  .pagebreak{page-break-before:always;}
+  .footer{margin-top:24px;padding-top:12px;border-top:1px solid var(--line);font-size:10px;color:var(--muted);text-align:center;}
+  @page{size:A4;margin:0;}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div>
+    <span class="badge">تقرير التقدّم</span>
+    <h1>العمل المنجز<br>بالفعل</h1>
+    <h2>سجل تفصيلي للميزات المبنية والمُسلَّمة في نظام إدارة التعلّم لمركز اللغات — Flutter + Supabase، حتى يونيو 2026.</h2>
+    <div class="stat">
+      <div class="n">~70%</div>
+      <div class="l">من نطاق النظام الكامل مبني ويعمل (النسخة الأولى مكتملة)</div>
+    </div>
+  </div>
+  <div class="meta">
+    <div><div class="k">المشروع</div><div class="v">نظام LMS لمركز اللغات</div></div>
+    <div><div class="k">التقنية</div><div class="v">Flutter + Supabase</div></div>
+    <div><div class="k">التاريخ</div><div class="v">يونيو 2026</div></div>
+  </div>
+</div>
+
+<div class="page">
+  <div class="sec">
+    <h2 class="section">١. الملخص</h2>
+    <p class="lead">المنصة الأساسية للأكاديمية مبنية وجاهزة للاستخدام. الطالب يسجّل، يتصفّح الدورات، يسجّل نفسه، يشاهد الدروس، ويتابع تقدّمه. المدرّس يدير الدورات ويرفع المواد ويدير المجموعات ويجدول الحصص المباشرة. المدير يدير المستخدمين والمراكز. فيما يلي قائمة وحدة بوحدة مطابقة لعرض المشروع الكامل.</p>
+    <div class="summary">
+      <div class="sbox done"><div class="n">12</div><div class="l">وحدة مكتملة</div></div>
+      <div class="sbox part"><div class="n">3</div><div class="l">جزئيًا</div></div>
+      <div class="sbox pend"><div class="n">2</div><div class="l">لم تبدأ بعد</div></div>
+    </div>
+    <table>
+      <tr><th>#</th><th>الوحدة</th><th>الحالة</th></tr>
+      <tr><td>01</td><td>تأسيس المشروع والأساس</td><td><span class="st done">مكتمل</span></td></tr>
+      <tr><td>02</td><td>التسجيل والدخول والأدوار</td><td><span class="st done">مكتمل</span></td></tr>
+      <tr><td>03</td><td>لوحة المدير</td><td><span class="st done">مكتمل</span></td></tr>
+      <tr><td>04</td><td>إدارة المحاضرين</td><td><span class="st done">مكتمل</span></td></tr>
+      <tr><td>05</td><td>الدورات والمحاضرات والجلسات (محرّر)</td><td><span class="st done">مكتمل</span></td></tr>
+      <tr><td>06</td><td>المواد التعليمية والتحكّم بالوصول</td><td><span class="st done">مكتمل</span></td></tr>
+      <tr><td>07</td><td>إدارة الطلاب والتسجيل</td><td><span class="st done">مكتمل</span></td></tr>
+      <tr><td>08</td><td>كتالوج الدورات والتسجيل</td><td><span class="st done">مكتمل</span></td></tr>
+      <tr><td>09</td><td>الدفع الإلكتروني (Paymob / Fawry)</td><td><span class="st pend">لم يبدأ</span></td></tr>
+      <tr><td>10</td><td>المهام والواجبات</td><td><span class="st pend">لم يبدأ</span></td></tr>
+      <tr><td>11</td><td>الاختبارات والكويزات</td><td><span class="st pend">لم يبدأ</span></td></tr>
+      <tr><td>12</td><td>الحصص المباشرة أونلاين</td><td><span class="st part">جزئي</span></td></tr>
+      <tr><td>13</td><td>الإشعارات</td><td><span class="st done">مكتمل</span></td></tr>
+      <tr><td>14</td><td>تتبّع التقدّم</td><td><span class="st done">مكتمل</span></td></tr>
+      <tr><td>15</td><td>الملف الشخصي والصورة</td><td><span class="st done">مكتمل</span></td></tr>
+      <tr><td>16</td><td>الاختبار والجودة وتلميع الواجهة</td><td><span class="st part">جزئي</span></td></tr>
+      <tr><td>17</td><td>النشر والتسليم</td><td><span class="st part">جزئي</span></td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="page pagebreak">
+  <div class="sec">
+    <h2 class="section">٢. الوحدات المكتملة — بالتفصيل</h2>
+
+    <div class="feat done-f">
+      <div class="feat-h"><span class="t">01 — تأسيس المشروع وأساس التطبيق</span><span class="st done">مكتمل</span></div>
+      <div class="feat-b"><ul>
+        <li>مشروع Flutter بهيكل مجلدات حسب الميزة (مصادقة، مدير، دورات، دروس، مجموعات، طالب، ملف، إشعارات، تقدّم)</li>
+        <li>ربط Supabase مع متغيرات البيئة (.env)</li>
+        <li>تنقّل go_router مع هيكل متكيّف حسب الدور</li>
+        <li>ثيم فاتح + داكن مع حفظ اختيار المستخدم</li>
+        <li>واجهة عربية + إنجليزية كاملة (app_localizations.dart)</li>
+        <li>تخطيط متجاوب (موبايل، تابلت، سطح مكتب)</li>
+        <li>مكوّنات مشتركة: تحميل، أخطاء، حقول، إعدادات</li>
+        <li>Riverpod لإدارة الحالة</li>
+      </ul></div>
+    </div>
+
+    <div class="feat done-f">
+      <div class="feat-h"><span class="t">02 — التسجيل والدخول والأدوار</span><span class="st done">مكتمل</span></div>
+      <div class="feat-b"><ul>
+        <li>تسجيل طالب مع تحقق من الحقول (رسائل مترجمة)</li>
+        <li>دخول وخروج بالبريد وكلمة المرور</li>
+        <li>نسيت كلمة المرور (رابط بالبريد)</li>
+        <li>تفعيل البريد + إعادة إرسال رسالة التفعيل من شاشة الدخول</li>
+        <li>توجيه حسب الدور: لوحات المدير / المدرّس / الطالب</li>
+        <li>البقاء مسجّل الدخول</li>
+        <li>رسائل خطأ واضحة للمستخدم (عربي/إنجليزي)</li>
+      </ul></div>
+    </div>
+
+    <div class="feat done-f">
+      <div class="feat-h"><span class="t">03 — لوحة المدير</span><span class="st done">مكتمل</span></div>
+      <div class="feat-b"><ul>
+        <li>لوحة إحصاءات (مستخدمون، دورات، تسجيلات)</li>
+        <li>قائمة مستخدمين مع بحث</li>
+        <li>تغيير دور المستخدم</li>
+        <li>مراكز التدريب: إضافة، تعديل، حذف</li>
+      </ul></div>
+    </div>
+
+    <div class="feat done-f">
+      <div class="feat-h"><span class="t">04 — إدارة المحاضرين</span><span class="st done">مكتمل</span></div>
+      <div class="feat-b"><ul>
+        <li>دور مدرّس مع لوحة وقائمة تنقّل خاصة</li>
+        <li>ملف شخصي لكل مدرّس</li>
+        <li>ربط المدرّسين بالدورات والمجموعات</li>
+        <li>المدير يرقّي المستخدم لمدرّس</li>
+      </ul></div>
+    </div>
+
+    <div class="feat done-f">
+      <div class="feat-h"><span class="t">05 — الدورات والمحاضرات والجلسات</span><span class="st done">مكتمل</span></div>
+      <div class="feat-b"><ul>
+        <li>إنشاء وتعديل وحذف الدورات</li>
+        <li>وحدات داخل كل دورة</li>
+        <li>دروس داخل كل وحدة مع ترتيب</li>
+        <li>محرّر دورات للمدرّس</li>
+        <li>نموذج بيانات الدورة</li>
+      </ul></div>
+    </div>
+  </div>
+</div>
+
+<div class="page pagebreak">
+  <div class="sec">
+    <div class="feat done-f">
+      <div class="feat-h"><span class="t">06 — المواد والتحكّم بالوصول</span><span class="st done">مكتمل</span></div>
+      <div class="feat-b"><ul>
+        <li>رفع فيديو وPDF وصوت لكل درس (Supabase Storage)</li>
+        <li>أمان على مستوى الصف (RLS) — المصرّح لهم فقط</li>
+        <li>مشغّل فيديو وعارض PDF</li>
+        <li>محرّر درس لربط المواد</li>
+        <li>مسارات تخزين آمنة لأسماء الملفات العربية</li>
+      </ul></div>
+    </div>
+
+    <div class="feat done-f">
+      <div class="feat-h"><span class="t">07 — الطلاب والتسجيل</span><span class="st done">مكتمل</span></div>
+      <div class="feat-b"><ul>
+        <li>مجموعات (دفعات) لكل دورة</li>
+        <li>قائمة طلاب: إضافة وإزالة</li>
+        <li>تسجيل ذاتي في الدورات المنشورة</li>
+        <li>«دوراتي» في لوحة الطالب</li>
+        <li>إشعار عند تسجيل جديد (trigger)</li>
+      </ul></div>
+    </div>
+
+    <div class="feat done-f">
+      <div class="feat-h"><span class="t">08 — كتالوج الدورات والتسجيل</span><span class="st done">مكتمل</span></div>
+      <div class="feat-b"><ul>
+        <li>كتالوج بطاقات دورات</li>
+        <li>بحث وفلترة</li>
+        <li>تفاصيل الدورة وزر التسجيل</li>
+        <li>ملاحظة: التسجيل مجاني/ذاتي — الدفع الإلكتروني لم يُبنَ بعد (الوحدة 09)</li>
+      </ul></div>
+    </div>
+
+    <div class="feat done-f">
+      <div class="feat-h"><span class="t">13 — الإشعارات</span><span class="st done">مكتمل</span></div>
+      <div class="feat-b"><ul>
+        <li>قائمة إشعارات داخل التطبيق</li>
+        <li>تعليم كمقروء</li>
+        <li>تنبيهات التسجيل</li>
+      </ul></div>
+    </div>
+
+    <div class="feat done-f">
+      <div class="feat-h"><span class="t">14 — تتبّع التقدّم</span><span class="st done">مكتمل</span></div>
+      <div class="feat-b"><ul>
+        <li>استئناف الفيديو من آخر موضع</li>
+        <li>إكمال الدرس تلقائيًا عند 90%</li>
+        <li>أشرطة تقدّم للدورة</li>
+      </ul></div>
+    </div>
+
+    <div class="feat done-f">
+      <div class="feat-h"><span class="t">15 — الملف الشخصي والصورة</span><span class="st done">مكتمل</span></div>
+      <div class="feat-b"><ul>
+        <li>شاشة ملف لكل الأدوار</li>
+        <li>تعديل الاسم والهاتف والنبذة</li>
+        <li>رفع صورة شخصية</li>
+      </ul></div>
+    </div>
+  </div>
+</div>
+
+<div class="page pagebreak">
+  <div class="sec">
+    <h2 class="section">٣. مكتمل جزئيًا</h2>
+
+    <div class="feat part-f">
+      <div class="feat-h"><span class="t">12 — الحصص المباشرة</span><span class="st part">جزئي</span></div>
+      <div class="feat-b">
+        <div class="lbl">تم</div><ul>
+          <li>جدولة جلسة (عنوان، وقت، رابط اجتماع) من تفاصيل المجموعة</li>
+          <li>قائمة الجلسات القادمة</li>
+          <li>فتح الرابط (Zoom / Meet) من التطبيق</li>
+          <li>جدول live_sessions في قاعدة البيانات + RLS</li>
+        </ul>
+        <div class="lbl">لم يُنجَز بعد</div><ul>
+          <li>بثّ مدمج داخل التطبيق (SDK)</li>
+          <li>إنشاء اجتماع تلقائي عبر API</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feat part-f">
+      <div class="feat-h"><span class="t">16 — الاختبار والجودة</span><span class="st part">جزئي</span></div>
+      <div class="feat-b">
+        <div class="lbl">تم</div><ul>
+          <li>اختبارات وحدة: مسارات التخزين، رسائل الأخطاء، التنقّل</li>
+          <li>رسائل خطأ مفهومة ومترجمة</li>
+          <li>ثيم موحّد على الشاشات الرئيسية</li>
+        </ul>
+        <div class="lbl">لم يُنجَز بعد</div><ul>
+          <li>اختبارات شاملة على كل المنصات</li>
+          <li>توقيع QA رسمي</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feat part-f">
+      <div class="feat-h"><span class="t">17 — النشر والتسليم</span><span class="st part">جزئي</span></div>
+      <div class="feat-b">
+        <div class="lbl">تم</div><ul>
+          <li>توثيق: إعداد Supabase، المدير، قائمة الإطلاق</li>
+          <li>4 ملفات migrations + seed + سياسات RLS</li>
+          <li>أدوات: verify_schema.sh، bootstrap_dev.sql</li>
+          <li>التطبيق يعمل على الويب وmacOS؛ جاهز لبناء أندرويد/iOS</li>
+        </ul>
+        <div class="lbl">لم يُنجَز بعد</div><ul>
+          <li>نشر إنتاج على استضافة</li>
+          <li>رفع Google Play / App Store</li>
+          <li>جلسة تسليم رسمية للعميل</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2 class="section" style="margin-top:20px">٤. لم يبدأ بعد</h2>
+    <table>
+      <tr><th>الوحدة</th><th>ما تبقّى</th></tr>
+      <tr><td>09 — الدفع الإلكتروني</td><td>دمج Paymob/Fawry، الدفع، webhooks، فتح الوصول بعد الدفع</td></tr>
+      <tr><td>10 — المهام والواجبات</td><td>واجبات، تسليمات، تصحيح</td></tr>
+      <tr><td>11 — الاختبارات والكويزات</td><td>أسئلة، مؤقّت، تصحيح آلي، نتائج</td></tr>
+    </table>
+
+    <h2 class="section" style="margin-top:20px">٥. مخرجات تقنية (قاعدة البيانات والأدوات)</h2>
+    <div class="tech"><ul>
+      <li><b>قاعدة البيانات:</b> profiles، centers، courses، modules، lessons، materials، batches، enrollments، lesson_progress، live_sessions، notifications</li>
+      <li><b>Migrations:</b> مخطط أولي، RLS وتخزين، إصلاح التسجيل، ميزات MVP</li>
+      <li><b>الأمان:</b> Row Level Security على الجداول وسياسات التخزين</li>
+      <li><b>Triggers:</b> مستخدم جديد، إشعار التسجيل، إكمال الدرس</li>
+      <li><b>منصات مُختبرة:</b> الويب (أساسي)، macOS؛ Flutter يدعم أندرويد/iOS (لم يُنشر بعد على المتاجر)</li>
+    </ul></div>
+  </div>
+
+  <div class="footer">
+    تقرير تقدّم داخلي — نظام LMS لمركز اللغات — يونيو 2026. مبني على الكود والتوثيق في المستودع.
+  </div>
+</div>
+
+</body>
+</html>

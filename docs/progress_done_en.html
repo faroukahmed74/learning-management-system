@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>LMS — Work Completed Report</title>
+<style>
+  :root{--primary:#0f766e;--primary-light:#14b8a6;--done:#0e9f6e;--done-bg:#e8f8f1;--partial:#d97706;--partial-bg:#fef3c7;--pending:#64748b;--pending-bg:#f1f5f9;--ink:#1f2933;--muted:#64748b;--line:#e2e8f0;--bg:#f8fafc;}
+  *{box-sizing:border-box;} html,body{margin:0;padding:0;}
+  body{font-family:"Segoe UI","Helvetica Neue",Arial,sans-serif;color:var(--ink);font-size:11.5px;line-height:1.55;}
+  .cover{height:1040px;background:linear-gradient(150deg,#0f766e 0%,#14b8a6 55%,#2dd4bf 100%);color:#fff;padding:85px 68px;display:flex;flex-direction:column;justify-content:space-between;page-break-after:always;}
+  .cover .badge{display:inline-block;border:1px solid rgba(255,255,255,.5);border-radius:30px;padding:6px 18px;font-size:11px;letter-spacing:2px;text-transform:uppercase;}
+  .cover h1{font-size:44px;line-height:1.12;margin:22px 0 10px;font-weight:700;}
+  .cover h2{font-size:18px;font-weight:400;opacity:.92;margin:0;max-width:620px;line-height:1.5;}
+  .cover .stat{margin-top:28px;padding:20px 26px;background:rgba(255,255,255,.14);border-radius:14px;display:inline-block;}
+  .cover .stat .n{font-size:48px;font-weight:700;}
+  .cover .stat .l{font-size:14px;opacity:.9;margin-top:4px;}
+  .cover .meta{border-top:1px solid rgba(255,255,255,.28);padding-top:24px;display:flex;gap:40px;flex-wrap:wrap;font-size:13px;}
+  .cover .meta .k{opacity:.75;font-size:10px;text-transform:uppercase;letter-spacing:1px;}
+  .cover .meta .v{font-size:16px;font-weight:600;margin-top:2px;}
+  .page{padding:44px 56px;}
+  h2.section{font-size:20px;color:var(--primary);margin:0 0 5px;padding-bottom:7px;border-bottom:3px solid var(--primary-light);display:inline-block;}
+  .sec{margin-bottom:24px;}
+  .lead{color:var(--muted);font-size:12px;margin:10px 0 16px;}
+  .summary{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:16px 0;}
+  .sbox{border-radius:10px;padding:16px;text-align:center;}
+  .sbox.done{background:var(--done-bg);border:1px solid #a7e8cf;}
+  .sbox.part{background:var(--partial-bg);border:1px solid #fcd34d;}
+  .sbox.pend{background:var(--pending-bg);border:1px solid var(--line);}
+  .sbox .n{font-size:28px;font-weight:700;}
+  .sbox.done .n{color:var(--done);}
+  .sbox.part .n{color:var(--partial);}
+  .sbox.pend .n{color:var(--pending);}
+  .sbox .l{font-size:11px;color:var(--muted);margin-top:4px;}
+  table{width:100%;border-collapse:collapse;font-size:11px;border-radius:8px;overflow:hidden;box-shadow:0 0 0 1px var(--line);margin:12px 0;}
+  th{background:var(--primary);color:#fff;text-align:left;padding:8px 10px;font-weight:600;}
+  td{padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top;}
+  tr:nth-child(even) td{background:var(--bg);}
+  .st{display:inline-block;padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;text-transform:uppercase;}
+  .st.done{background:var(--done-bg);color:var(--done);}
+  .st.part{background:var(--partial-bg);color:var(--partial);}
+  .st.pend{background:var(--pending-bg);color:var(--pending);}
+  .feat{border:1px solid var(--line);border-radius:10px;margin-bottom:11px;overflow:hidden;page-break-inside:avoid;}
+  .feat.done-f{border-left:5px solid var(--done);}
+  .feat.part-f{border-left:5px solid var(--partial);}
+  .feat-h{display:flex;justify-content:space-between;align-items:center;padding:11px 14px;background:var(--bg);border-bottom:1px solid var(--line);}
+  .feat-h .t{font-size:13px;font-weight:700;color:var(--primary);}
+  .feat-b{padding:11px 14px;font-size:10.8px;}
+  .feat-b ul{margin:6px 0 0;padding-left:16px;}
+  .feat-b ul li{margin-bottom:3px;}
+  .feat-b .lbl{font-weight:700;color:var(--primary);font-size:10px;text-transform:uppercase;margin-top:8px;}
+  .tech{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px;margin-top:12px;}
+  .tech ul{margin:0;padding-left:18px;font-size:11px;}
+  .tech li{margin-bottom:4px;}
+  .pagebreak{page-break-before:always;}
+  .footer{margin-top:24px;padding-top:12px;border-top:1px solid var(--line);font-size:9.5px;color:var(--muted);text-align:center;}
+  @page{size:A4;margin:0;}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div>
+    <span class="badge">Progress Report</span>
+    <h1>Work Already<br>Completed</h1>
+    <h2>Detailed record of features built and delivered in the Language Center LMS — Flutter + Supabase, as of June 2026.</h2>
+    <div class="stat">
+      <div class="n">~70%</div>
+      <div class="l">of full system scope is built and working (MVP complete)</div>
+    </div>
+  </div>
+  <div class="meta">
+    <div><div class="k">Project</div><div class="v">Language Center LMS</div></div>
+    <div><div class="k">Stack</div><div class="v">Flutter + Supabase</div></div>
+    <div><div class="k">Date</div><div class="v">June 2026</div></div>
+  </div>
+</div>
+
+<div class="page">
+  <div class="sec">
+    <h2 class="section">1. Summary</h2>
+    <p class="lead">The core academy platform is built and usable. Students can register, browse courses, enroll, watch lessons, and track progress. Instructors manage courses, upload materials, run batches, and schedule live sessions. Admins manage users and centers. What follows is a module-by-module list aligned with the full project proposal.</p>
+    <div class="summary">
+      <div class="sbox done"><div class="n">12</div><div class="l">Modules fully done</div></div>
+      <div class="sbox part"><div class="n">3</div><div class="l">Partially done</div></div>
+      <div class="sbox pend"><div class="n">2</div><div class="l">Not started yet</div></div>
+    </div>
+    <table>
+      <tr><th>#</th><th>Module</th><th>Status</th></tr>
+      <tr><td>01</td><td>Project setup & foundation</td><td><span class="st done">Done</span></td></tr>
+      <tr><td>02</td><td>Registration, login & roles</td><td><span class="st done">Done</span></td></tr>
+      <tr><td>03</td><td>Admin dashboard</td><td><span class="st done">Done</span></td></tr>
+      <tr><td>04</td><td>Lecturer (instructor) management</td><td><span class="st done">Done</span></td></tr>
+      <tr><td>05</td><td>Courses, lectures & sessions (editor)</td><td><span class="st done">Done</span></td></tr>
+      <tr><td>06</td><td>Learning materials & access control</td><td><span class="st done">Done</span></td></tr>
+      <tr><td>07</td><td>Student management & enrollment</td><td><span class="st done">Done</span></td></tr>
+      <tr><td>08</td><td>Course catalog & enrollment</td><td><span class="st done">Done</span></td></tr>
+      <tr><td>09</td><td>Online payments (Paymob / Fawry)</td><td><span class="st pend">Not started</span></td></tr>
+      <tr><td>10</td><td>Tasks & assignments</td><td><span class="st pend">Not started</span></td></tr>
+      <tr><td>11</td><td>Exams & quizzes</td><td><span class="st pend">Not started</span></td></tr>
+      <tr><td>12</td><td>Live online sessions</td><td><span class="st part">Partial</span></td></tr>
+      <tr><td>13</td><td>Notifications</td><td><span class="st done">Done</span></td></tr>
+      <tr><td>14</td><td>Progress tracking</td><td><span class="st done">Done</span></td></tr>
+      <tr><td>15</td><td>User profile & avatar</td><td><span class="st done">Done</span></td></tr>
+      <tr><td>16</td><td>Testing, QA & UI polish</td><td><span class="st part">Partial</span></td></tr>
+      <tr><td>17</td><td>Deployment & handover</td><td><span class="st part">Partial</span></td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="page pagebreak">
+  <div class="sec">
+    <h2 class="section">2. Completed modules — detail</h2>
+
+    <div class="feat done-f">
+      <div class="feat-h"><span class="t">01 — Project setup & app foundation</span><span class="st done">Done</span></div>
+      <div class="feat-b">
+        <ul>
+          <li>Flutter project with feature-based folder structure (auth, admin, courses, lessons, batches, student, profile, notifications, progress)</li>
+          <li>Supabase client configured with environment variables (<code>.env</code>)</li>
+          <li>go_router navigation with role-adaptive shell (admin / instructor / student)</li>
+          <li>Light theme + dark theme — user can switch; preference saved locally</li>
+          <li>Arabic + English UI — full manual localization (<code>app_localizations.dart</code>)</li>
+          <li>Responsive layouts (mobile, tablet, desktop) with adaptive scaffolds</li>
+          <li>Shared widgets: loading states, error views, form fields, settings controls</li>
+          <li>Riverpod for state management across the app</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feat done-f">
+      <div class="feat-h"><span class="t">02 — Registration, login & user roles</span><span class="st done">Done</span></div>
+      <div class="feat-b">
+        <ul>
+          <li>Student registration with form validation (localized messages)</li>
+          <li>Email/password login and logout</li>
+          <li>Forgot password flow (email reset link)</li>
+          <li>Email verification handling + “Resend verification email” on login</li>
+          <li>Role-based routing after login: Admin, Instructor, Student dashboards</li>
+          <li>Session persistence (stay logged in)</li>
+          <li>User-friendly error messages (Supabase auth/storage/API mapped to AR/EN)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feat done-f">
+      <div class="feat-h"><span class="t">03 — Admin dashboard</span><span class="st done">Done</span></div>
+      <div class="feat-b">
+        <ul>
+          <li>Dashboard with statistics (users, courses, enrollments)</li>
+          <li>User list with search</li>
+          <li>Change user role (promote to admin / instructor / student)</li>
+          <li>Training centers: create, edit, delete (CRUD)</li>
+          <li>Admin-only navigation and access</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feat done-f">
+      <div class="feat-h"><span class="t">04 — Lecturer (instructor) management</span><span class="st done">Done</span></div>
+      <div class="feat-b">
+        <ul>
+          <li>Instructor role with dedicated dashboard and navigation</li>
+          <li>Profile per instructor (via profiles table)</li>
+          <li>Instructors linked to courses and batches</li>
+          <li>Admin can assign instructor role to any user</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feat done-f">
+      <div class="feat-h"><span class="t">05 — Courses, lectures & sessions (full editor)</span><span class="st done">Done</span></div>
+      <div class="feat-b">
+        <ul>
+          <li>Create, edit, delete courses</li>
+          <li>Modules (units) inside each course</li>
+          <li>Lessons inside each module with title, description, order</li>
+          <li>Course editor screen for instructors</li>
+          <li>Course form for metadata (title, description, level, etc.)</li>
+          <li>Instructor course list and course detail views</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page pagebreak">
+  <div class="sec">
+    <div class="feat done-f">
+      <div class="feat-h"><span class="t">06 — Learning materials & access control</span><span class="st done">Done</span></div>
+      <div class="feat-b">
+        <ul>
+          <li>Upload video, PDF, and audio per lesson (Supabase Storage)</li>
+          <li>Row Level Security (RLS) — only enrolled / authorized users access materials</li>
+          <li>Lesson player: video player widget, document viewer (PDF)</li>
+          <li>Lesson editor for attaching materials to lessons</li>
+          <li>Safe storage paths for Arabic/non-ASCII filenames (prevents upload errors)</li>
+          <li>Storage bucket policies in migrations</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feat done-f">
+      <div class="feat-h"><span class="t">07 — Student management & enrollment</span><span class="st done">Done</span></div>
+      <div class="feat-b">
+        <ul>
+          <li>Batches (student groups) per course</li>
+          <li>Roster: add and remove students from a batch</li>
+          <li>Student self-enrollment in published courses</li>
+          <li>“My Courses” on student dashboard</li>
+          <li>Enrollment records in database with RLS</li>
+          <li>Trigger: notification on new enrollment</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feat done-f">
+      <div class="feat-h"><span class="t">08 — Course catalog & online booking</span><span class="st done">Done</span></div>
+      <div class="feat-b">
+        <ul>
+          <li>Student catalog with course cards</li>
+          <li>Search and filter courses</li>
+          <li>Course detail and enroll action</li>
+          <li>Enrollment confirmation flow</li>
+          <li><i>Note: enrollment is free/self-service — paid checkout not built yet (Module 09)</i></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feat done-f">
+      <div class="feat-h"><span class="t">13 — Notifications</span><span class="st done">Done</span></div>
+      <div class="feat-b">
+        <ul>
+          <li>In-app notifications list screen</li>
+          <li>Mark notification as read</li>
+          <li>Enrollment alerts (database trigger creates notification)</li>
+          <li>Notifications accessible from app shell</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feat done-f">
+      <div class="feat-h"><span class="t">14 — Progress tracking</span><span class="st done">Done</span></div>
+      <div class="feat-b">
+        <ul>
+          <li>Video resume position saved per lesson</li>
+          <li>Auto-complete lesson at 90% watched</li>
+          <li>Course progress bars on student views</li>
+          <li>Progress stored in <code>lesson_progress</code> table with RLS</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feat done-f">
+      <div class="feat-h"><span class="t">15 — User profile & avatar</span><span class="st done">Done</span></div>
+      <div class="feat-b">
+        <ul>
+          <li>Profile screen for all roles</li>
+          <li>Edit profile: name, phone, bio, etc.</li>
+          <li>Avatar upload to Supabase Storage</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page pagebreak">
+  <div class="sec">
+    <h2 class="section">3. Partially completed</h2>
+
+    <div class="feat part-f">
+      <div class="feat-h"><span class="t">12 — Live online sessions</span><span class="st part">Partial</span></div>
+      <div class="feat-b">
+        <div class="lbl">Done</div>
+        <ul>
+          <li>Schedule live session (title, date/time, meeting URL) on batch detail</li>
+          <li>List upcoming sessions for a batch</li>
+          <li>Students/instructors open meeting via external link (Zoom, Meet, etc.)</li>
+          <li><code>live_sessions</code> table + RLS in database</li>
+        </ul>
+        <div class="lbl">Not done yet</div>
+        <ul>
+          <li>Embedded live video SDK (Agora / 100ms / Zoom SDK inside app)</li>
+          <li>Automatic meeting creation via API</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feat part-f">
+      <div class="feat-h"><span class="t">16 — Testing, QA & UI polish</span><span class="st part">Partial</span></div>
+      <div class="feat-b">
+        <div class="lbl">Done</div>
+        <ul>
+          <li>Unit tests: storage path sanitization, error message mapping, navigation</li>
+          <li>Localized, user-friendly error messages across the app</li>
+          <li>Consistent theming on all main screens</li>
+          <li><code>flutter analyze</code> clean on main codebase</li>
+        </ul>
+        <div class="lbl">Not done yet</div>
+        <ul>
+          <li>Full end-to-end test suite on all platforms</li>
+          <li>Formal QA sign-off document</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feat part-f">
+      <div class="feat-h"><span class="t">17 — Deployment & handover</span><span class="st part">Partial</span></div>
+      <div class="feat-b">
+        <div class="lbl">Done</div>
+        <ul>
+          <li>Documentation: setup, Supabase, admin bootstrap, launch checklist</li>
+          <li>SQL migrations (4 files) + seed + RLS policies</li>
+          <li>Dev tools: <code>verify_schema.sh</code>, <code>verify_migrations.dart</code>, <code>bootstrap_dev.sql</code></li>
+          <li>App runs on Web (Chrome), desktop (macOS), ready for Android/iOS builds</li>
+        </ul>
+        <div class="lbl">Not done yet</div>
+        <ul>
+          <li>Production deploy to hosting</li>
+          <li>Google Play / App Store submission</li>
+          <li>Formal client handover session</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h2 class="section">4. Not started yet</h2>
+    <table>
+      <tr><th>Module</th><th>What remains</th></tr>
+      <tr><td>09 — Online payments</td><td>Paymob/Fawry integration, checkout, webhooks, paid access unlock</td></tr>
+      <tr><td>10 — Tasks & assignments</td><td>Create assignments, student submissions, instructor grading</td></tr>
+      <tr><td>11 — Exams & quizzes</td><td>Question builder, timer, auto-grading, results screens</td></tr>
+    </table>
+  </div>
+
+  <div class="sec">
+    <h2 class="section">5. Technical deliverables (backend & tooling)</h2>
+    <div class="tech">
+      <ul>
+        <li><b>Database:</b> PostgreSQL schema — profiles, centers, courses, modules, lessons, materials, batches, enrollments, lesson_progress, live_sessions, notifications, audit_logs</li>
+        <li><b>Migrations:</b> <code>20260523000000_initial_schema.sql</code>, RLS + storage, signup trigger fix, MVP features</li>
+        <li><b>Security:</b> Row Level Security on all tables; storage policies for materials bucket</li>
+        <li><b>Functions/triggers:</b> handle_new_user, notify_on_enrollment, check_lesson_completion, set_updated_at</li>
+        <li><b>Scripts:</b> bootstrap_dev.sql, promote_admin, verify_schema.sql</li>
+        <li><b>Platforms tested:</b> Web (primary), macOS; Android/iOS builds supported by Flutter (not yet store-published)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer">
+    Internal progress report — Language Center LMS — June 2026. Based on codebase and documentation in repository.
+  </div>
+</div>
+
+</body>
+</html>

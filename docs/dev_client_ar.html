@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>عرض تطوير نظام إدارة التعلم — تفصيلي</title>
+<style>
+  :root{--primary:#1e3a8a;--primary-light:#3b5bdb;--accent:#0ea5e9;--accent-soft:#e0f2fe;--gold:#f59e0b;--gold-soft:#fef3c7;--ink:#1f2933;--muted:#64748b;--line:#e2e8f0;--bg:#f8fafc;--good:#0e9f6e;}
+  *{box-sizing:border-box;} html,body{margin:0;padding:0;}
+  body{font-family:"Cairo","Tahoma","Geeza Pro","Arial",sans-serif;color:var(--ink);font-size:12px;line-height:1.7;direction:rtl;}
+  .cover{height:1040px;background:linear-gradient(210deg,#1e3a8a 0%,#3b5bdb 50%,#0ea5e9 100%);color:#fff;padding:85px 68px;display:flex;flex-direction:column;justify-content:space-between;page-break-after:always;}
+  .cover .badge{display:inline-block;border:1px solid rgba(255,255,255,.5);border-radius:30px;padding:6px 20px;font-size:12px;}
+  .cover h1{font-size:46px;line-height:1.2;margin:22px 0 10px;font-weight:700;}
+  .cover h2{font-size:18px;font-weight:400;opacity:.9;margin:0;max-width:640px;line-height:1.55;}
+  .cover .price-box{margin-top:28px;padding:22px 28px;background:rgba(255,255,255,.12);border-radius:14px;border:1px solid rgba(255,255,255,.25);display:inline-block;}
+  .cover .price-box .pl{font-size:12px;opacity:.8;}
+  .cover .price-box .pv{font-size:42px;font-weight:700;margin-top:4px;direction:ltr;text-align:right;}
+  .cover .price-box .ps{font-size:14px;opacity:.85;margin-top:4px;}
+  .cover .meta{border-top:1px solid rgba(255,255,255,.28);padding-top:24px;display:flex;gap:40px;flex-wrap:wrap;font-size:13px;}
+  .cover .meta .k{opacity:.7;font-size:11px;}
+  .cover .meta .v{font-size:16px;font-weight:700;margin-top:2px;}
+  .page{padding:42px 54px;}
+  h2.section{font-size:21px;color:var(--primary);margin:0 0 5px;padding-bottom:7px;border-bottom:3px solid var(--accent);display:inline-block;}
+  .sec{margin-bottom:24px;}
+  .lead{color:var(--muted);font-size:12.5px;margin:10px 0 16px;}
+  .phase{background:var(--primary);color:#fff;padding:8px 14px;border-radius:8px;font-size:12px;font-weight:700;margin:16px 0 10px;display:inline-block;}
+  .feat{border:1px solid var(--line);border-radius:10px;margin-bottom:11px;overflow:hidden;page-break-inside:avoid;background:#fff;}
+  .feat-h{display:flex;justify-content:space-between;align-items:flex-start;padding:11px 13px;background:var(--bg);border-bottom:1px solid var(--line);gap:12px;}
+  .feat-h .n{font-size:10px;color:var(--muted);font-weight:600;}
+  .feat-h .t{font-size:14px;font-weight:700;color:var(--primary);margin-top:2px;}
+  .feat-h .cost{text-align:left;white-space:nowrap;}
+  .feat-h .cost .d{font-size:10px;color:var(--muted);}
+  .feat-h .cost .p{font-size:17px;font-weight:700;color:var(--primary-light);direction:ltr;}
+  .feat-b{padding:11px 13px;}
+  .feat-b .desc{color:var(--muted);font-size:11px;margin-bottom:7px;}
+  .feat-b ul{margin:0;padding-right:16px;font-size:11px;}
+  .feat-b ul li{margin-bottom:3px;}
+  .feat-b .del{font-size:10px;font-weight:700;color:var(--primary);margin:7px 0 4px;}
+  table{width:100%;border-collapse:collapse;font-size:11.5px;border-radius:8px;overflow:hidden;box-shadow:0 0 0 1px var(--line);}
+  th{background:var(--primary);color:#fff;text-align:right;padding:8px 10px;font-weight:700;}
+  td{padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top;}
+  tr:nth-child(even) td{background:var(--bg);}
+  td.num,th.num{text-align:left;direction:ltr;}
+  tr.total td{background:var(--gold-soft);font-weight:700;color:var(--primary);}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .box{border:1px solid var(--line);border-radius:10px;padding:14px;background:#fff;}
+  .box .lbl{font-size:10.5px;color:var(--muted);}
+  .box .val{font-size:17px;font-weight:700;color:var(--primary);margin-top:4px;}
+  .box .sub{font-size:10.5px;color:var(--muted);margin-top:3px;}
+  .box.hl{border:2px solid var(--accent);background:var(--accent-soft);}
+  .box.gold{border:2px solid var(--gold);background:var(--gold-soft);}
+  .callout{border-radius:8px;padding:12px 16px;margin:14px 0;font-size:12px;border-right:5px solid var(--accent);background:var(--accent-soft);}
+  .callout.warn{border-color:var(--gold);background:var(--gold-soft);}
+  .callout .h{font-weight:700;color:var(--primary);margin-bottom:4px;}
+  ul.simple{margin:8px 0;padding-right:18px;font-size:12px;color:var(--muted);}
+  ul.simple li{margin-bottom:4px;}
+  .footer{margin-top:26px;padding-top:12px;border-top:1px solid var(--line);font-size:10px;color:var(--muted);text-align:center;}
+  .pagebreak{page-break-before:always;}
+  @page{size:A4;margin:0;}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div>
+    <span class="badge">عرض تطوير</span>
+    <h1>نظام إدارة التعلّم<br>— عرض سعر البناء</h1>
+    <h2>تصميم وتطوير واختبار وتسليم منصة أكاديميتك بالكامل — كل المميزات مشمولة، بأقل سعر احترافي عادل في السوق المصري.</h2>
+    <div class="price-box">
+      <div class="pl">إجمالي استثمار التطوير</div>
+      <div class="pv">35,400 جنيه</div>
+      <div class="ps">~29.5 يوم عمل · Flutter + Supabase · ويب + أندرويد + iOS</div>
+    </div>
+  </div>
+  <div class="meta">
+    <div><div class="k">مُعدّ لـ</div><div class="v">صاحب الأكاديمية</div></div>
+    <div><div class="k">السعة</div><div class="v">~50 مستخدمًا</div></div>
+    <div><div class="k">الصلاحية</div><div class="v">يونيو 2026</div></div>
+  </div>
+</div>
+
+<div class="page">
+  <div class="sec">
+    <h2 class="section">١. ماذا تستلم</h2>
+    <p class="lead">نظام LMS جاهز للاستخدام: تطبيق ويب (يعمل على متصفّح الموبايل) + تطبيق أندرويد + تطبيق iOS — من كود Flutter واحد. عربي وإنجليزي، ثيم فاتح وداكن، دخول آمن، وكل ميزة مذكورة في هذا المستند — مبنية ومختبرة ومُسلَّمة مع دليل إعداد.</p>
+    <div class="grid2">
+      <div class="box"><div class="lbl">التقنية</div><div class="val">Flutter + Supabase</div><div class="sub">تطبيق متعدد المنصات، قاعدة بيانات سحابية، تخزين آمن</div></div>
+      <div class="box"><div class="lbl">المنصات</div><div class="val">ويب + أندرويد + iOS</div><div class="sub">تطبيق Flutter واحد — ثلاث طرق للوصول</div></div>
+      <div class="box"><div class="lbl">اللغات</div><div class="val">عربي وإنجليزي</div><div class="sub">واجهة كاملة باللغتين، تبديل في أي وقت</div></div>
+      <div class="box"><div class="lbl">الأدوار</div><div class="val">3 أدوار</div><div class="sub">مدير · مدرّس · طالب — لكلٍ شاشاته</div></div>
+    </div>
+  </div>
+  <div class="sec">
+    <h2 class="section">٢. كيف حُسب السعر</h2>
+    <p class="lead">كل وحدة أدناه توضّح بالضبط ما سيُبنى، وعدد الأيام، وتكلفتها. كل الأسعار بسعر واحد: <b>1,200 جنيه لكل يوم عمل</b> — أقل سعر عادل لمطوّر Flutter محترف في مصر (2026).</p>
+    <table>
+      <tr><th>البند</th><th>المبلغ</th><th>المعنى</th></tr>
+      <tr><td>سعر اليوم (هذا العرض)</td><td class="num">1,200 جنيه</td><td>أقل سعر فريلانس احترافي</td></tr>
+      <tr><td>إجمالي الجهد</td><td class="num">29.5 يوم</td><td>مطوّر واحد، دوام كامل</td></tr>
+      <tr class="total"><td>السعر الإجمالي</td><td class="num">35,400 جنيه</td><td>29.5 × 1,200</td></tr>
+    </table>
+    <div class="callout warn">
+      <div class="h">غير مشمول في هذا السعر</div>
+      السيرفر، الاستضافة، النطاق، Zoom، رسوم بوابة الدفع، رسوم Google Play (~1,250 جنيه)، رسوم Apple Developer (~5,000 جنيه/سنة)، وإنترنت الشهر — موجودة في مستند <b>عرض تكلفة البنية التحتية</b> المنفصل.
+    </div>
+  </div>
+</div>
+
+<div class="page">
+  <div class="sec">
+    <h2 class="section">٣. النطاق والتكلفة التفصيلية — وحدة بوحدة</h2>
+    <span class="phase">المرحلة ١ — التأسيس (4,800 جنيه · 4 أيام)</span>
+
+    <div class="feat">
+      <div class="feat-h"><div><div class="n">الوحدة 01</div><div class="t">تأسيس المشروع وأساس التطبيق</div></div><div class="cost"><div class="d">2 أيام</div><div class="p">2,400 جنيه</div></div></div>
+      <div class="feat-b">
+        <div class="desc">القاعدة التقنية التي تُبنى عليها كل الميزات — هيكل، تنقّل، ثيمات، وواجهة ثنائية اللغة.</div>
+        <div class="del">مخرجات التسليم</div>
+        <ul>
+          <li>هيكل مشروع Flutter (مجلدات، توجيه، إدارة حالة)</li>
+          <li>ربط Supabase وإعداد البيئة</li>
+          <li>هيكل التنقّل (قوائم، شريط جانبي، متجاوب مع الموبايل)</li>
+          <li>ثيم فاتح + داكن مع حفظ اختيار المستخدم</li>
+          <li>تبديل عربي/إنجليزي في كل الشاشات</li>
+          <li>تخطيط متجاوب (موبايل، تابلت، متصفّح سطح المكتب)</li>
+          <li>مكوّنات واجهة قابلة لإعادة الاستخدام</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feat">
+      <div class="feat-h"><div><div class="n">الوحدة 02</div><div class="t">التسجيل والدخول والأدوار</div></div><div class="cost"><div class="d">2 أيام</div><div class="p">2,400 جنيه</div></div></div>
+      <div class="feat-b">
+        <div class="desc">دخول آمن للمدير والمدرّس والطالب — كلٌّ يرى ما يسمح له دوره فقط.</div>
+        <div class="del">مخرجات التسليم</div>
+        <ul>
+          <li>نموذج تسجيل طالب مع التحقق</li>
+          <li>دخول وخروج</li>
+          <li>نسيت كلمة المرور + رابط الاستعادة بالبريد</li>
+          <li>تفعيل البريد الإلكتروني قبل الدخول</li>
+          <li>توجيه حسب الدور: لوحات المدير / المدرّس / الطالب</li>
+          <li>البقاء مسجّل الدخول</li>
+          <li>رسائل خطأ واضحة (عربي وإنجليزي)</li>
+        </ul>
+      </div>
+    </div>
+
+    <span class="phase">المرحلة ٢ — الإدارة والمحتوى (8,400 جنيه · 7 أيام)</span>
+
+    <div class="feat">
+      <div class="feat-h"><div><div class="n">الوحدة 03</div><div class="t">لوحة المدير</div></div><div class="cost"><div class="d">2 أيام</div><div class="p">2,400 جنيه</div></div></div>
+      <div class="feat-b">
+        <div class="del">مخرجات التسليم</div>
+        <ul>
+          <li>إحصاءات عامة (مستخدمون، دورات، تسجيلات)</li>
+          <li>قائمة مستخدمين مع بحث</li>
+          <li>تغيير دور المستخدم (ترقية لمدرّس/مدير)</li>
+          <li>إدارة مراكز التدريب (إضافة، تعديل، حذف)</li>
+          <li>صلاحيات وقائمة خاصة بالمدير فقط</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feat">
+      <div class="feat-h"><div><div class="n">الوحدة 04</div><div class="t">إدارة المحاضرين</div></div><div class="cost"><div class="d">0.5 يوم</div><div class="p">600 جنيه</div></div></div>
+      <div class="feat-b">
+        <div class="del">مخرجات التسليم</div>
+        <ul>
+          <li>صفحات ملف المحاضر</li>
+          <li>ربط المحاضرين بالدورات والمجموعات</li>
+          <li>مدخل لوحة المدرّس</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feat">
+      <div class="feat-h"><div><div class="n">الوحدة 05</div><div class="t">الدورات والمحاضرات والجلسات (محرّر كامل)</div></div><div class="cost"><div class="d">1 يوم</div><div class="p">1,200 جنيه</div></div></div>
+      <div class="feat-b">
+        <div class="desc">المدرّس يبني دورات كاملة: عنوان، وصف، وحدات، دروس، وترتيب.</div>
+        <div class="del">مخرجات التسليم</div>
+        <ul>
+          <li>إنشاء / تعديل / حذف دورات</li>
+          <li>وحدات داخل كل دورة</li>
+          <li>دروس داخل كل وحدة (عنوان، وصف، ترتيب)</li>
+          <li>التحكم بترتيب الدروس</li>
+          <li>حالة النشر / المسودة</li>
+          <li>قائمة دورات المدرّس وصفحة التفاصيل</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feat">
+      <div class="feat-h"><div><div class="n">الوحدة 06</div><div class="t">المواد التعليمية والتحكّم بالوصول</div></div><div class="cost"><div class="d">1 يوم</div><div class="p">1,200 جنيه</div></div></div>
+      <div class="feat-b">
+        <div class="desc">رفع فيديو وPDF وصوت — يفتح الملف المسجّل / المصرّح له فقط.</div>
+        <div class="del">مخرجات التسليم</div>
+        <ul>
+          <li>رفع فيديو وPDF وصوت لكل درس</li>
+          <li>تخزين سحابي آمن</li>
+          <li>أمان على مستوى الصف: وصول المصرّح لهم فقط</li>
+          <li>شاشة عرض الدرس</li>
+          <li>دعم أسماء ملفات عربية</li>
+          <li>عرض/تحميل حسب نوع الملف</li>
+        </ul>
+      </div>
+    </div>
+
+    <span class="phase">المرحلة ٣ — الطلاب والمدفوعات (7,200 جنيه · 6 أيام)</span>
+
+    <div class="feat">
+      <div class="feat-h"><div><div class="n">الوحدة 07</div><div class="t">إدارة الطلاب والتسجيل</div></div><div class="cost"><div class="d">2 أيام</div><div class="p">2,400 جنيه</div></div></div>
+      <div class="feat-b">
+        <div class="del">مخرجات التسليم</div>
+        <ul>
+          <li>مجموعات / دفعات لكل دورة</li>
+          <li>قائمة الطلاب: إضافة وإزالة</li>
+          <li>تسجيل ذاتي للطالب في الدورات المتاحة</li>
+          <li>قائمة «دوراتي» للطالب</li>
+          <li>إشعار عند التسجيل</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feat">
+      <div class="feat-h"><div><div class="n">الوحدة 08</div><div class="t">كتالوج الدورات والحجز أونلاين</div></div><div class="cost"><div class="d">2.5 يوم</div><div class="p">3,000 جنيه</div></div></div>
+      <div class="feat-b">
+        <div class="del">مخرجات التسليم</div>
+        <ul>
+          <li>كتالوج دورات للطالب</li>
+          <li>بحث وفلترة</li>
+          <li>صفحة تفاصيل الدورة (معلومات، سعر، مدرّس)</li>
+          <li>زر حجز/تسجيل مع تأكيد</li>
+          <li>حالة التسجيل ظاهرة للطالب</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feat">
+      <div class="feat-h"><div><div class="n">الوحدة 09</div><div class="t">الدفع الإلكتروني (Paymob / Fawry)</div></div><div class="cost"><div class="d">2.5 يوم</div><div class="p">3,000 جنيه</div></div></div>
+      <div class="feat-b">
+        <div class="desc">الطالب يدفع رسوم الدورة أونلاين؛ يُفتح الوصول تلقائيًا بعد نجاح الدفع.</div>
+        <div class="del">مخرجات التسليم</div>
+        <ul>
+          <li>دمج بوابة Paymob أو Fawry</li>
+          <li>مسار الدفع من الكتالوج أو تفاصيل الدورة</li>
+          <li>شاشات نجاح وفشل الدفع</li>
+          <li>Webhook لتأكيد الدفع وفتح الدورة</li>
+          <li>حفظ سجل الدفع في قاعدة البيانات</li>
+          <li>إيصال/تأكيد للطالب</li>
+        </ul>
+      </div>
+    </div>
+
+    <span class="phase">المرحلة ٤ — التعلّم والحصص المباشرة (7,200 جنيه · 6 أيام)</span>
+
+    <div class="feat">
+      <div class="feat-h"><div><div class="n">الوحدة 10</div><div class="t">المهام والواجبات</div></div><div class="cost"><div class="d">2 أيام</div><div class="p">2,400 جنيه</div></div></div>
+      <div class="feat-b">
+        <div class="del">مخرجات التسليم</div>
+        <ul>
+          <li>المدرّس ينشئ واجبات لكل درس أو دورة</li>
+          <li>موعد التسليم والتعليمات</li>
+          <li>الطالب يرسل نصًا أو ملفًا</li>
+          <li>المدرّس يعرض التسليمات ويضع درجة وملاحظات</li>
+          <li>الطالب يرى الدرجة والتعليقات</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feat">
+      <div class="feat-h"><div><div class="n">الوحدة 11</div><div class="t">الاختبارات والكويزات (تصحيح آلي)</div></div><div class="cost"><div class="d">2.5 يوم</div><div class="p">3,000 جنيه</div></div></div>
+      <div class="feat-b">
+        <div class="del">مخرجات التسليم</div>
+        <ul>
+          <li>اختيار من متعدد، صح/خطأ (قابل للتوسيع)</li>
+          <li>مؤقّت الاختبار وحد المحاولات</li>
+          <li>حساب الدرجة تلقائيًا</li>
+          <li>شاشة نتائج الطالب</li>
+          <li>عرض درجات كل الطلاب للمدرّس</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feat">
+      <div class="feat-h"><div><div class="n">الوحدة 12</div><div class="t">الحصص المباشرة أونلاين</div></div><div class="cost"><div class="d">1.5 يوم</div><div class="p">1,800 جنيه</div></div></div>
+      <div class="feat-b">
+        <div class="desc">جدولة حصص حيّة؛ الطالب ينضم عبر Zoom / Google Meet / 100ms.</div>
+        <div class="del">مخرجات التسليم</div>
+        <ul>
+          <li>إنشاء جلسة مباشرة (تاريخ، وقت، رابط، دورة/مجموعة)</li>
+          <li>قائمة الحصص القادمة للطالب</li>
+          <li>زر انضمام بنقرة واحدة</li>
+          <li>إدارة الجلسات من لوحة المدرّس</li>
+          <li>اختياري: دمج SDK الاجتماع (إذا وُفّرت مفاتيح API)</li>
+        </ul>
+      </div>
+    </div>
+
+    <span class="phase">المرحلة ٥ — التلميع والتسليم (7,800 جنيه · 6.5 يوم)</span>
+
+    <div class="feat">
+      <div class="feat-h"><div><div class="n">الوحدة 13</div><div class="t">الإشعارات</div></div><div class="cost"><div class="d">1.5 يوم</div><div class="p">1,800 جنيه</div></div></div>
+      <div class="feat-b"><ul><li>قائمة إشعارات داخل التطبيق</li><li>تنبيهات التسجيل والواجبات والحصص</li><li>تعليم كمقروء</li></ul></div>
+    </div>
+    <div class="feat">
+      <div class="feat-h"><div><div class="n">الوحدة 14</div><div class="t">تتبّع التقدّم</div></div><div class="cost"><div class="d">1.5 يوم</div><div class="p">1,800 جنيه</div></div></div>
+      <div class="feat-b"><ul><li>استئناف الفيديو من حيث توقّف الطالب</li><li>إكمال الدرس تلقائيًا (مثلاً عند 90%)</li><li>شريط تقدّم لكل دورة</li></ul></div>
+    </div>
+    <div class="feat">
+      <div class="feat-h"><div><div class="n">الوحدة 15</div><div class="t">الملف الشخصي والصورة</div></div><div class="cost"><div class="d">0.5 يوم</div><div class="p">600 جنيه</div></div></div>
+      <div class="feat-b"><ul><li>تعديل الاسم والهاتف والنبذة</li><li>رفع صورة شخصية</li><li>عرض الملف من أي دور</li></ul></div>
+    </div>
+    <div class="feat">
+      <div class="feat-h"><div><div class="n">الوحدة 16</div><div class="t">الاختبار والجودة وتلميع الواجهة</div></div><div class="cost"><div class="d">2 يوم</div><div class="p">2,400 جنيه</div></div></div>
+      <div class="feat-b"><ul><li>اختبار المسارات الرئيسية على الويب وأندرويد و iOS</li><li>إصلاح الأخطاء</li><li>توحيد شكل الواجهة</li><li>رسائل خطأ واضحة ومترجمة</li></ul></div>
+    </div>
+    <div class="feat">
+      <div class="feat-h"><div><div class="n">الوحدة 17</div><div class="t">النشر والتسليم</div></div><div class="cost"><div class="d">2 يوم</div><div class="p">2,400 جنيه</div></div></div>
+      <div class="feat-b"><ul><li>بناء ونشر تطبيق الويب</li><li>تجهيز أندرويد / Google Play</li><li>تجهيز iOS / App Store (TestFlight أو رفع للمتجر)</li><li>تطبيق migrations قاعدة البيانات</li><li>دليل إعداد للمدير</li><li>جلسة تسليم وشرح (مرة واحدة)</li></ul></div>
+    </div>
+
+    <table style="margin-top:14px">
+      <tr><th>المرحلة</th><th>الوحدات</th><th class="num">أيام</th><th class="num">جنيه</th></tr>
+      <tr><td>١ — التأسيس</td><td>01–02</td><td class="num">4</td><td class="num">4,800</td></tr>
+      <tr><td>٢ — الإدارة والمحتوى</td><td>03–06</td><td class="num">7</td><td class="num">8,400</td></tr>
+      <tr><td>٣ — الطلاب والمدفوعات</td><td>07–09</td><td class="num">6</td><td class="num">7,200</td></tr>
+      <tr><td>٤ — التعلّم والمباشر</td><td>10–12</td><td class="num">6</td><td class="num">7,200</td></tr>
+      <tr><td>٥ — التلميع والتسليم</td><td>13–17</td><td class="num">6.5</td><td class="num">7,800</td></tr>
+      <tr class="total"><td colspan="2">الإجمالي الكلي</td><td class="num">29.5</td><td class="num">35,400 جنيه</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="page pagebreak">
+  <div class="sec">
+    <h2 class="section">٤. الجدول الزمني</h2>
+    <table>
+      <tr><th>المرحلة</th><th>المدة</th><th>التقويم (تقريبي)</th></tr>
+      <tr><td>١ — التأسيس</td><td>4 أيام</td><td>الأسبوع 1</td></tr>
+      <tr><td>٢ — الإدارة والمحتوى</td><td>7 أيام</td><td>الأسبوع 1 – 2</td></tr>
+      <tr><td>٣ — الطلاب والمدفوعات</td><td>6 أيام</td><td>الأسبوع 3</td></tr>
+      <tr><td>٤ — التعلّم والمباشر</td><td>6 أيام</td><td>الأسبوع 4</td></tr>
+      <tr><td>٥ — التلميع والتسليم</td><td>6.5 يوم</td><td>الأسبوع 5 – 6</td></tr>
+      <tr class="total"><td>الإجمالي</td><td>29.5 يوم عمل</td><td>~6 أسابيع (منفرد، دوام كامل)</td></tr>
+    </table>
+  </div>
+
+  <div class="sec">
+    <h2 class="section">٥. جدول الدفعات</h2>
+    <p class="lead">الدفعات مرتبطة بتسليم مراحل — تدفع عند إنجاز كل مرحلة وعرضها.</p>
+    <table>
+      <tr><th>#</th><th>متى</th><th>ما تستلمه</th><th class="num">%</th><th class="num">جنيه</th></tr>
+      <tr><td>1</td><td>بداية العقد</td><td>المرحلة 1: التطبيق يعمل، الدخول والأدوار، الثيمات واللغات</td><td class="num">30%</td><td class="num">10,620</td></tr>
+      <tr><td>2</td><td>منتصف المشروع</td><td>المرحلتان 2–3: دورات، مواد، طلاب، كتالوج، دفع يعمل</td><td class="num">40%</td><td class="num">14,160</td></tr>
+      <tr><td>3</td><td>التسليم النهائي</td><td>المرحلتان 4–5: مهام، اختبارات، مباشر، اختبار ويب/أندرويد/iOS، نشر وتسليم</td><td class="num">30%</td><td class="num">10,620</td></tr>
+      <tr class="total"><td colspan="3">الإجمالي</td><td class="num">100%</td><td class="num">35,400 جنيه</td></tr>
+    </table>
+  </div>
+
+  <div class="sec">
+    <h2 class="section">٦. الشروط والافتراضات</h2>
+    <ul class="simple">
+      <li><b>التعديلات:</b> حتى جولتين من تعديلات معقولة على الواجهة/النص لكل وحدة. تغييرات كبيرة في النطاق تُسعَّر منفصلة.</li>
+      <li><b>ما يوفره العميل:</b> حساب Supabase، حساب تاجر Paymob/Fawry، حساب Zoom أو اجتماعات، حساب Apple Developer (لنشر iOS)، محتوى الدورات (نص/فيديو).</li>
+      <li><b>الدعم بعد الإطلاق:</b> أسبوعان مجانيان لإصلاح الأخطاء بعد التسليم. دعم مستمر: 5,000–10,000 جنيه/شهر (اختياري).</li>
+      <li><b>الملكية:</b> الكود المصدري وقاعدة البيانات تُسلَّمان لك بالكامل بعد الدفعة الأخيرة.</li>
+    </ul>
+    <div class="grid2" style="margin-top:16px">
+      <div class="box gold">
+        <div class="lbl">إجمالي الاستثمار</div>
+        <div class="val" style="direction:ltr;text-align:right">35,400 جنيه</div>
+        <div class="sub">مرة واحدة · LMS كامل كما هو موصوف</div>
+      </div>
+      <div class="box hl">
+        <div class="lbl">تكلفة التشغيل الشهرية</div>
+        <div class="val">عرض منفصل</div>
+        <div class="sub">انظر عرض البنية التحتية (~750–2,650 جنيه/شهر سحابي)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    عرض تطوير — يونيو 2026 — أقل أسعار احترافية في السوق المصري. صالح لمدة 30 يومًا من تاريخ الإصدار.
+  </div>
+</div>
+
+</body>
+</html>

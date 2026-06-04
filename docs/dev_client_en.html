@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>LMS Development Proposal — Detailed</title>
+<style>
+  :root{--primary:#1e3a8a;--primary-light:#3b5bdb;--accent:#0ea5e9;--accent-soft:#e0f2fe;--gold:#f59e0b;--gold-soft:#fef3c7;--ink:#1f2933;--muted:#64748b;--line:#e2e8f0;--bg:#f8fafc;--good:#0e9f6e;}
+  *{box-sizing:border-box;} html,body{margin:0;padding:0;}
+  body{font-family:"Segoe UI","Helvetica Neue",Arial,sans-serif;color:var(--ink);font-size:11.8px;line-height:1.55;}
+  .cover{height:1040px;background:linear-gradient(150deg,#1e3a8a 0%,#3b5bdb 50%,#0ea5e9 100%);color:#fff;padding:85px 68px;display:flex;flex-direction:column;justify-content:space-between;page-break-after:always;}
+  .cover .badge{display:inline-block;border:1px solid rgba(255,255,255,.5);border-radius:30px;padding:6px 18px;font-size:11px;letter-spacing:2px;text-transform:uppercase;}
+  .cover h1{font-size:46px;line-height:1.12;margin:22px 0 10px;font-weight:700;}
+  .cover h2{font-size:18px;font-weight:400;opacity:.9;margin:0;max-width:600px;line-height:1.5;}
+  .cover .price-box{margin-top:28px;padding:22px 28px;background:rgba(255,255,255,.12);border-radius:14px;border:1px solid rgba(255,255,255,.25);display:inline-block;}
+  .cover .price-box .pl{font-size:12px;opacity:.8;text-transform:uppercase;letter-spacing:1px;}
+  .cover .price-box .pv{font-size:42px;font-weight:700;margin-top:4px;}
+  .cover .price-box .ps{font-size:14px;opacity:.85;margin-top:4px;}
+  .cover .meta{border-top:1px solid rgba(255,255,255,.28);padding-top:24px;display:flex;gap:40px;flex-wrap:wrap;font-size:13px;}
+  .cover .meta .k{opacity:.7;font-size:10px;text-transform:uppercase;letter-spacing:1px;}
+  .cover .meta .v{font-size:16px;font-weight:600;margin-top:2px;}
+  .page{padding:44px 56px;}
+  h2.section{font-size:20px;color:var(--primary);margin:0 0 5px;padding-bottom:7px;border-bottom:3px solid var(--accent);display:inline-block;}
+  .sec{margin-bottom:26px;}
+  .lead{color:var(--muted);font-size:12px;margin:10px 0 16px;}
+  .phase{background:var(--primary);color:#fff;padding:8px 14px;border-radius:8px;font-size:12px;font-weight:700;margin:18px 0 12px;display:inline-block;}
+  .feat{border:1px solid var(--line);border-radius:10px;margin-bottom:12px;overflow:hidden;page-break-inside:avoid;background:#fff;}
+  .feat-h{display:flex;justify-content:space-between;align-items:flex-start;padding:12px 14px;background:var(--bg);border-bottom:1px solid var(--line);gap:12px;}
+  .feat-h .n{font-size:10px;color:var(--muted);font-weight:600;}
+  .feat-h .t{font-size:13.5px;font-weight:700;color:var(--primary);margin-top:2px;}
+  .feat-h .cost{text-align:right;white-space:nowrap;}
+  .feat-h .cost .d{font-size:10px;color:var(--muted);}
+  .feat-h .cost .p{font-size:17px;font-weight:700;color:var(--primary-light);}
+  .feat-b{padding:12px 14px;}
+  .feat-b .desc{color:var(--muted);font-size:11px;margin-bottom:8px;}
+  .feat-b ul{margin:0;padding-left:16px;font-size:10.8px;color:var(--ink);}
+  .feat-b ul li{margin-bottom:3px;}
+  .feat-b .del{font-size:10px;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:.5px;margin:8px 0 4px;}
+  table{width:100%;border-collapse:collapse;font-size:11.2px;border-radius:8px;overflow:hidden;box-shadow:0 0 0 1px var(--line);}
+  th{background:var(--primary);color:#fff;text-align:left;padding:8px 10px;font-weight:600;}
+  td{padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top;}
+  tr:nth-child(even) td{background:var(--bg);}
+  td.num,th.num{text-align:right;}
+  tr.total td{background:var(--gold-soft);font-weight:700;color:var(--primary);}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .box{border:1px solid var(--line);border-radius:10px;padding:14px;background:#fff;}
+  .box .lbl{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);}
+  .box .val{font-size:18px;font-weight:700;color:var(--primary);margin-top:4px;}
+  .box .sub{font-size:10.5px;color:var(--muted);margin-top:3px;}
+  .box.hl{border:2px solid var(--accent);background:var(--accent-soft);}
+  .box.gold{border:2px solid var(--gold);background:var(--gold-soft);}
+  .callout{border-radius:8px;padding:12px 16px;margin:14px 0;font-size:11.5px;border-left:5px solid var(--accent);background:var(--accent-soft);}
+  .callout.warn{border-color:var(--gold);background:var(--gold-soft);}
+  .callout .h{font-weight:700;color:var(--primary);margin-bottom:4px;}
+  ul.simple{margin:8px 0;padding-left:18px;font-size:11.5px;color:var(--muted);}
+  ul.simple li{margin-bottom:4px;}
+  .footer{margin-top:28px;padding-top:12px;border-top:1px solid var(--line);font-size:9.5px;color:var(--muted);text-align:center;}
+  .pagebreak{page-break-before:always;}
+  @page{size:A4;margin:0;}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div>
+    <span class="badge">Development Proposal</span>
+    <h1>Learning Management<br>System — Build Quote</h1>
+    <h2>Complete design, development, testing and delivery of your academy platform — all features included, priced at minimum professional rates for the Egyptian market.</h2>
+    <div class="price-box">
+      <div class="pl">Total development investment</div>
+      <div class="pv">35,400 EGP</div>
+      <div class="ps">~29.5 working days · Flutter + Supabase · Web + Android + iOS</div>
+    </div>
+  </div>
+  <div class="meta">
+    <div><div class="k">Prepared for</div><div class="v">Academy Owner</div></div>
+    <div><div class="k">Capacity</div><div class="v">~50 users</div></div>
+    <div><div class="k">Valid</div><div class="v">June 2026</div></div>
+  </div>
+</div>
+
+<div class="page">
+  <div class="sec">
+    <h2 class="section">1. What you receive</h2>
+    <p class="lead">A ready-to-use LMS: web application (works on phone browsers), Android app, and iOS app — all from one Flutter codebase. Arabic and English, light and dark theme, secure login, and every feature listed in this document — built, tested, and handed over with setup instructions.</p>
+    <div class="grid2">
+      <div class="box"><div class="lbl">Technology</div><div class="val">Flutter + Supabase</div><div class="sub">Cross-platform app, cloud database, secure file storage</div></div>
+      <div class="box"><div class="lbl">Platforms</div><div class="val">Web + Android + iOS</div><div class="sub">One Flutter app — three ways for students to access</div></div>
+      <div class="box"><div class="lbl">Languages</div><div class="val">Arabic & English</div><div class="sub">Full UI in both languages, user can switch anytime</div></div>
+      <div class="box"><div class="lbl">User roles</div><div class="val">3 roles</div><div class="sub">Admin · Instructor · Student — each with its own screens</div></div>
+    </div>
+  </div>
+  <div class="sec">
+    <h2 class="section">2. How the price is calculated</h2>
+    <p class="lead">Each module below lists exactly what will be built, how many days it takes, and its cost. All costs use one rate: <b>1,200 EGP per working day</b> — the minimum fair rate for a professional Flutter developer in Egypt (2026).</p>
+    <table>
+      <tr><th>Rate</th><th>Amount</th><th>Meaning</th></tr>
+      <tr><td>Day rate (this quote)</td><td class="num">1,200 EGP</td><td>Minimum professional freelance rate</td></tr>
+      <tr><td>Total effort</td><td class="num">29.5 days</td><td>Solo developer, full-time</td></tr>
+      <tr class="total"><td>Total price</td><td class="num">35,400 EGP</td><td>29.5 × 1,200</td></tr>
+    </table>
+    <div class="callout warn">
+      <div class="h">Not included in this price</div>
+      Server, hosting, domain, Zoom, payment gateway fees, Google Play fee (~1,250 EGP), Apple Developer fee (~5,000 EGP/year), and monthly internet — these are in the separate <b>Infrastructure Cost Proposal</b> document.
+    </div>
+  </div>
+</div>
+
+<div class="page">
+  <div class="sec">
+    <h2 class="section">3. Detailed scope & cost — by module</h2>
+    <span class="phase">Phase 1 — Foundation (4,800 EGP · 4 days)</span>
+
+    <div class="feat">
+      <div class="feat-h"><div><div class="n">Module 01</div><div class="t">Project setup & app foundation</div></div><div class="cost"><div class="d">1 day</div><div class="p">1,200 EGP</div></div></div>
+      <div class="feat-b">
+        <div class="desc">The technical base every other feature builds on — clean structure, navigation, themes, and bilingual UI.</div>
+        <div class="del">Deliverables</div>
+        <ul>
+          <li>Flutter project structure (folders, routing, state management)</li>
+          <li>Supabase connection and environment configuration</li>
+          <li>App navigation shell (menus, sidebars, mobile-friendly layout)</li>
+          <li>Light theme + dark theme with user preference saved</li>
+          <li>Arabic + English language switch on all screens</li>
+          <li>Responsive layout (phone, tablet, desktop browser)</li>
+          <li>Reusable UI components (buttons, forms, loading, error states)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feat">
+      <div class="feat-h"><div><div class="n">Module 02</div><div class="t">Registration, login & user roles</div></div><div class="cost"><div class="d">2 days</div><div class="p">2,400 EGP</div></div></div>
+      <div class="feat-b">
+        <div class="desc">Secure access for admins, instructors and students — each sees only what their role allows.</div>
+        <div class="del">Deliverables</div>
+        <ul>
+          <li>Student registration form with validation</li>
+          <li>Login and logout</li>
+          <li>Forgot password + email reset link</li>
+          <li>Email verification flow (confirm account before login)</li>
+          <li>Role-based routing: Admin / Instructor / Student dashboards</li>
+          <li>Session persistence (stay logged in)</li>
+          <li>Clear, user-friendly error messages (Arabic & English)</li>
+        </ul>
+      </div>
+    </div>
+
+    <span class="phase">Phase 2 — Management & content (8,400 EGP · 7 days)</span>
+
+    <div class="feat">
+      <div class="feat-h"><div><div class="n">Module 03</div><div class="t">Admin dashboard</div></div><div class="cost"><div class="d">2 days</div><div class="p">2,400 EGP</div></div></div>
+      <div class="feat-b">
+        <div class="del">Deliverables</div>
+        <ul>
+          <li>Overview statistics (users, courses, enrollments)</li>
+          <li>User list with search</li>
+          <li>Change user role (promote to instructor / admin)</li>
+          <li>Training centers CRUD (add, edit, delete centers)</li>
+          <li>Admin-only navigation and permissions</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feat">
+      <div class="feat-h"><div><div class="n">Module 04</div><div class="t">Lecturer (instructor) management</div></div><div class="cost"><div class="d">0.5 day</div><div class="p">600 EGP</div></div></div>
+      <div class="feat-b">
+        <div class="del">Deliverables</div>
+        <ul>
+          <li>Instructor profile pages</li>
+          <li>Assign instructors to courses and student groups (batches)</li>
+          <li>Instructor dashboard entry point</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feat">
+      <div class="feat-h"><div><div class="n">Module 05</div><div class="t">Courses, lectures & sessions (full editor)</div></div><div class="cost"><div class="d">1 day</div><div class="p">1,200 EGP</div></div></div>
+      <div class="feat-b">
+        <div class="desc">Instructors build complete courses: title, description, modules, lessons, and ordering.</div>
+        <div class="del">Deliverables</div>
+        <ul>
+          <li>Create / edit / delete courses</li>
+          <li>Modules (units) inside each course</li>
+          <li>Lessons inside each module (title, description, order)</li>
+          <li>Drag or control lesson order</li>
+          <li>Course publish / draft status</li>
+          <li>Instructor course list and course detail view</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feat">
+      <div class="feat-h"><div><div class="n">Module 06</div><div class="t">Learning materials & access control</div></div><div class="cost"><div class="d">1 day</div><div class="p">1,200 EGP</div></div></div>
+      <div class="feat-b">
+        <div class="desc">Upload videos, PDFs and audio — only enrolled / allowed students can open each file.</div>
+        <div class="del">Deliverables</div>
+        <ul>
+          <li>Upload video, PDF, audio per lesson</li>
+          <li>Secure cloud storage (Supabase Storage)</li>
+          <li>Row-level security: only authorized users access files</li>
+          <li>Lesson player screen (view materials)</li>
+          <li>Support for Arabic file names (safe storage paths)</li>
+          <li>Download / view controls per material type</li>
+        </ul>
+      </div>
+    </div>
+
+    <span class="phase">Phase 3 — Students & payments (7,200 EGP · 6 days)</span>
+
+    <div class="feat">
+      <div class="feat-h"><div><div class="n">Module 07</div><div class="t">Student management & enrollment</div></div><div class="cost"><div class="d">2 days</div><div class="p">2,400 EGP</div></div></div>
+      <div class="feat-b">
+        <div class="del">Deliverables</div>
+        <ul>
+          <li>Student groups / batches per course</li>
+          <li>Roster: add and remove students from a batch</li>
+          <li>Student self-enrollment in available courses</li>
+          <li>"My Courses" list for students</li>
+          <li>Enrollment notifications</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feat">
+      <div class="feat-h"><div><div class="n">Module 08</div><div class="t">Course catalog & online booking</div></div><div class="cost"><div class="d">2.5 days</div><div class="p">3,000 EGP</div></div></div>
+      <div class="feat-b">
+        <div class="del">Deliverables</div>
+        <ul>
+          <li>Public / student catalog with course cards</li>
+          <li>Search and filter courses</li>
+          <li>Course detail page (info, price, instructor)</li>
+          <li>Book or enroll button with confirmation</li>
+          <li>Enrollment status visible to student</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feat">
+      <div class="feat-h"><div><div class="n">Module 09</div><div class="t">Online payments (Paymob / Fawry)</div></div><div class="cost"><div class="d">2.5 days</div><div class="p">3,000 EGP</div></div></div>
+      <div class="feat-b">
+        <div class="desc">Students pay course fees online; access unlocks automatically after successful payment.</div>
+        <div class="del">Deliverables</div>
+        <ul>
+          <li>Paymob (or Fawry) payment gateway integration</li>
+          <li>Checkout flow from course catalog / detail</li>
+          <li>Payment success and failure screens</li>
+          <li>Server webhook to confirm payment and unlock course</li>
+          <li>Payment record stored in database</li>
+          <li>Receipt / confirmation shown to student</li>
+        </ul>
+      </div>
+    </div>
+
+    <span class="phase">Phase 4 — Learning & live classes (7,200 EGP · 6 days)</span>
+
+    <div class="feat">
+      <div class="feat-h"><div><div class="n">Module 10</div><div class="t">Tasks & assignments</div></div><div class="cost"><div class="d">2 days</div><div class="p">2,400 EGP</div></div></div>
+      <div class="feat-b">
+        <div class="del">Deliverables</div>
+        <ul>
+          <li>Instructor creates assignments per lesson or course</li>
+          <li>Due date and instructions</li>
+          <li>Student submits text or file</li>
+          <li>Instructor views submissions and gives grade + feedback</li>
+          <li>Student sees grade and instructor comments</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feat">
+      <div class="feat-h"><div><div class="n">Module 11</div><div class="t">Exams & quizzes (auto-grading)</div></div><div class="cost"><div class="d">2.5 days</div><div class="p">3,000 EGP</div></div></div>
+      <div class="feat-b">
+        <div class="del">Deliverables</div>
+        <ul>
+          <li>Question types: multiple choice, true/false (expandable)</li>
+          <li>Exam timer and attempt limit</li>
+          <li>Automatic score calculation</li>
+          <li>Student results screen</li>
+          <li>Instructor view of all student scores</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feat">
+      <div class="feat-h"><div><div class="n">Module 12</div><div class="t">Live online sessions</div></div><div class="cost"><div class="d">1.5 days</div><div class="p">1,800 EGP</div></div></div>
+      <div class="feat-b">
+        <div class="desc">Schedule live classes; students join via integrated service (Zoom / Google Meet / 100ms).</div>
+        <div class="del">Deliverables</div>
+        <ul>
+          <li>Create live session (date, time, link, course/batch)</li>
+          <li>Student list sees upcoming live sessions</li>
+          <li>One-click join button (opens meeting)</li>
+          <li>Instructor manages sessions from dashboard</li>
+          <li>Optional: embedded meeting SDK (if API keys provided)</li>
+        </ul>
+      </div>
+    </div>
+
+    <span class="phase">Phase 5 — Polish & delivery (7,800 EGP · 6.5 days)</span>
+
+    <div class="feat">
+      <div class="feat-h"><div><div class="n">Module 13</div><div class="t">Notifications</div></div><div class="cost"><div class="d">1.5 days</div><div class="p">1,800 EGP</div></div></div>
+      <div class="feat-b">
+        <ul><li>In-app notification list</li><li>Alerts on new enrollment, assignments, live sessions</li><li>Mark as read</li></ul>
+      </div>
+    </div>
+    <div class="feat">
+      <div class="feat-h"><div><div class="n">Module 14</div><div class="t">Progress tracking</div></div><div class="cost"><div class="d">1.5 days</div><div class="p">1,800 EGP</div></div></div>
+      <div class="feat-b">
+        <ul><li>Resume video where student stopped</li><li>Mark lesson complete (e.g. at 90% watched)</li><li>Course progress bar per student</li></ul>
+      </div>
+    </div>
+    <div class="feat">
+      <div class="feat-h"><div><div class="n">Module 15</div><div class="t">User profile & avatar</div></div><div class="cost"><div class="d">0.5 day</div><div class="p">600 EGP</div></div></div>
+      <div class="feat-b">
+        <ul><li>Edit name, phone, bio</li><li>Upload profile photo</li><li>View profile from any role</li></ul>
+      </div>
+    </div>
+    <div class="feat">
+      <div class="feat-h"><div><div class="n">Module 16</div><div class="t">Testing, QA & UI polish</div></div><div class="cost"><div class="d">2 days</div><div class="p">2,400 EGP</div></div></div>
+      <div class="feat-b">
+        <ul><li>Test main flows on web, Android and iOS</li><li>Fix bugs found during testing</li><li>Consistent UI polish across screens</li><li>Localized, clear error messages</li></ul>
+      </div>
+    </div>
+    <div class="feat">
+      <div class="feat-h"><div><div class="n">Module 17</div><div class="t">Deployment & handover</div></div><div class="cost"><div class="d">2 days</div><div class="p">2,400 EGP</div></div></div>
+      <div class="feat-b">
+        <ul><li>Build and deploy web app (hosting ready)</li><li>Android APK / Google Play Store preparation</li><li>iOS build / App Store preparation (TestFlight or submission)</li><li>Database migrations applied</li><li>Setup guide for admin (how to add users, courses)</li><li>Handover walkthrough (1 session)</li></ul>
+      </div>
+    </div>
+
+    <table style="margin-top:16px">
+      <tr><th>Phase</th><th>Modules</th><th class="num">Days</th><th class="num">EGP</th></tr>
+      <tr><td>1 — Foundation</td><td>01–02</td><td class="num">4</td><td class="num">4,800</td></tr>
+      <tr><td>2 — Management & content</td><td>03–06</td><td class="num">7</td><td class="num">8,400</td></tr>
+      <tr><td>3 — Students & payments</td><td>07–09</td><td class="num">6</td><td class="num">7,200</td></tr>
+      <tr><td>4 — Learning & live</td><td>10–12</td><td class="num">6</td><td class="num">7,200</td></tr>
+      <tr><td>5 — Polish & delivery</td><td>13–17</td><td class="num">6.5</td><td class="num">7,800</td></tr>
+      <tr class="total"><td colspan="2">Grand total</td><td class="num">29.5</td><td class="num">35,400 EGP</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="page pagebreak">
+  <div class="sec">
+    <h2 class="section">4. Timeline</h2>
+    <table>
+      <tr><th>Phase</th><th>Duration</th><th>Calendar (approx.)</th></tr>
+      <tr><td>Phase 1 — Foundation</td><td>4 days</td><td>Week 1</td></tr>
+      <tr><td>Phase 2 — Management & content</td><td>7 days</td><td>Week 1 – 2</td></tr>
+      <tr><td>Phase 3 — Students & payments</td><td>6 days</td><td>Week 3</td></tr>
+      <tr><td>Phase 4 — Learning & live</td><td>6 days</td><td>Week 4</td></tr>
+      <tr><td>Phase 5 — Polish & delivery</td><td>6.5 days</td><td>Week 5 – 6</td></tr>
+      <tr class="total"><td>Total</td><td>29.5 working days</td><td>~6 weeks (solo, full-time)</td></tr>
+    </table>
+  </div>
+
+  <div class="sec">
+    <h2 class="section">5. Payment schedule</h2>
+    <p class="lead">Payments are tied to delivered milestones — you pay when each phase is completed and demonstrated.</p>
+    <table>
+      <tr><th>#</th><th>When</th><th>You receive</th><th class="num">%</th><th class="num">EGP</th></tr>
+      <tr><td>1</td><td>Contract start</td><td>Phase 1 complete: app runs, login & roles work, themes & languages</td><td class="num">30%</td><td class="num">10,620</td></tr>
+      <tr><td>2</td><td>Mid-project</td><td>Phases 2–3: courses, materials, students, catalog, payments working</td><td class="num">40%</td><td class="num">14,160</td></tr>
+      <tr><td>3</td><td>Final delivery</td><td>Phases 4–5: tasks, exams, live, tests on web/Android/iOS, deployed & handover</td><td class="num">30%</td><td class="num">10,620</td></tr>
+      <tr class="total"><td colspan="3">Total</td><td class="num">100%</td><td class="num">35,400 EGP</td></tr>
+    </table>
+  </div>
+
+  <div class="sec">
+    <h2 class="section">6. Terms & assumptions</h2>
+    <ul class="simple">
+      <li><b>Revisions:</b> Up to 2 rounds of reasonable UI/text changes per module included. Major scope changes are quoted separately.</li>
+      <li><b>Client provides:</b> Supabase account, payment gateway merchant account (Paymob/Fawry), Zoom or meeting account if needed, Apple Developer account (for iOS App Store), course content (text/videos).</li>
+      <li><b>Support after launch:</b> 2 weeks free bug-fix period after handover. Ongoing support: 5,000–10,000 EGP/month (optional).</li>
+      <li><b>Ownership:</b> Full source code and database delivered to you upon final payment.</li>
+    </ul>
+    <div class="grid2" style="margin-top:18px">
+      <div class="box gold">
+        <div class="lbl">Total investment</div>
+        <div class="val">35,400 EGP</div>
+        <div class="sub">One-time · full LMS as described</div>
+      </div>
+      <div class="box hl">
+        <div class="lbl">Monthly running cost</div>
+        <div class="val">Separate quote</div>
+        <div class="sub">See Infrastructure Cost Proposal (~750–2,650 EGP/mo cloud)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Development proposal — June 2026 — Egyptian market minimum professional rates. Valid for 30 days from issue date.
+  </div>
+</div>
+
+</body>
+</html>
